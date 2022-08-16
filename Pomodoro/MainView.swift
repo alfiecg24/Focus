@@ -9,9 +9,6 @@ import SwiftUI
 import CircularProgress
 import UserNotifications
 
-// Timer initialisation
-let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
 struct MainView: View {
     // State variables
     @State private var isActive = false
@@ -22,6 +19,8 @@ struct MainView: View {
     @State private var mode = Mode.study
     
     @State var time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var inBackground = false
+    @State var backgroundTicks = 0
     
     // Fetch necessary values from defaults
     @State private var color1: Color = UserDefaults.standard.color(forKey: "color1")
@@ -88,7 +87,9 @@ struct MainView: View {
                             }
                         }
                         isActive.toggle()
-                        setupLocalNotificationsFor()
+                        if !isActive {
+                            setupLocalNotificationsFor()
+                        }
                         let generator = UIImpactFeedbackGenerator(style: .medium)
                         generator.impactOccurred(intensity: 1.0)
                     }, label: {
@@ -180,56 +181,60 @@ struct MainView: View {
                     sessionsUntilLongBreak = UserDefaults.standard.integer(forKey: "sessionsUntilLongBreak")
                 }
                 // Timer mechanism
-                .onReceive(timer) { time in
-                    // Timer active and not yet complete
-                    if counter < countTo && isActive {
-                        counter += 1
+                .onReceive(time) { time in
+                    if inBackground {
+                        backgroundTicks += 1
                     }
-                    // Timer completed
-                    else if counter == countTo {
-                        // Study count increases by 1
-                        if mode == .study {
-                            studyCount += 1
+                    print("Tick")
+                    if isActive {
+                        // Timer active and not yet complete
+                        if counter < countTo {
+                            counter += 1
                         }
-                        // Timer paused and counter reset
-                        isActive = false
-                        counter = 0
-                        // No long break
-                        if studyCount != sessionsUntilLongBreak {
+                        // Timer completed
+                        else if counter == countTo {
+                            counter = 0
+                            isActive.toggle()
+                            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                             if mode == .study {
-                                mode = .studyBreak
-                            } else if mode == .studyBreak {
-                                mode = .study
-                            } else if mode == .longStudyBreak {
-                                mode = .study
+                                studyCount += 1
+                                mode = switchModes(mode: mode, studyCount: studyCount)
                             }
-                        }
-                        // Already in long study break
-                        else if mode == .longStudyBreak {
-                            counter = 0
-                            studyCount = 0
-                            mode = .study
-                        }
-                        //
-                        else {
-                            counter = 0
-                            mode = .longStudyBreak
+                            else if mode == .longStudyBreak {
+                                mode = switchModes(mode: mode, studyCount: studyCount)
+                                studyCount = 0
+                            } else {
+                                mode = switchModes(mode: mode, studyCount: studyCount)
+                            }
+                            
                         }
                     }
                 }
                 // App goes to background
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+                    inBackground = true
+                    print("App going to the background")
+                    print("counter: \(counter)")
+                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                    setupLocalNotificationsFor()
                     let defaults = UserDefaults.standard
                     defaults.set(Date(), forKey: "saveTime")
                     print(Date())
                 }
                 // App returns to foreground
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                    inBackground = false
+//                    counter -= backgroundTicks
+                    backgroundTicks = 0
                     print("App returning to the foreground")
+                    print("counter 1: \(counter)")
                     if let saveDate = UserDefaults.standard.object(forKey: "saveTime") as? Date {
                         countDiff = getTimeDifference(startDate: saveDate)
-                        refresh(seconds: counter)
-                        if countDiff >= countTo || counter >= countTo || !isActive {
+                        print("countDiff: \(countDiff)")
+                        if isActive {
+                            refresh(seconds: countDiff)
+                        }
+                        if countDiff >= countTo || counter >= countTo || isActive == false {
                             removeSavedDate()
                             counter = 0
                             countDiff = 0
@@ -253,6 +258,7 @@ struct MainView: View {
                             time.upstream.connect().cancel()
                         }
                     }
+                    print("counter 2: \(counter)")
                 }
             }
             // Settings button
@@ -272,7 +278,7 @@ struct MainView: View {
     }
     func setupLocalNotificationsFor() {
         
-        let countInterval = 60
+        let countInterval = countTo - counter
         
         notificationPublisher.sendNotification(title:"Time's Up!", subtitle: "", body: "Your \(modeName) segment is complete", delayInterval: countInterval)
     }

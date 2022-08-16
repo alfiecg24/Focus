@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		3130E46728AC11B1009D6C5D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3130E46628AC11B1009D6C5D /* Helpers.swift */; };
 		3130E46928AC121C009D6C5D /* NotificationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3130E46828AC121C009D6C5D /* NotificationPublisher.swift */; };
-		3142C6E928ABD08700029F65 /* SystemSounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3142C6E828ABD08700029F65 /* SystemSounds.swift */; };
+		3130E46E28AC3579009D6C5D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 3130E46D28AC3579009D6C5D /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		3130E47028AC362F009D6C5D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3130E46F28AC362F009D6C5D /* GoogleService-Info.plist */; };
 		31648F6428A9758200501096 /* CircularProgress in Frameworks */ = {isa = PBXBuildFile; productRef = 31648F6328A9758200501096 /* CircularProgress */; };
 		31648F6628A983EE00501096 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31648F6528A983EE00501096 /* ClockView.swift */; };
 		31648F6828A9844200501096 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31648F6728A9844200501096 /* PomodoroTimer.swift */; };
@@ -22,10 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3130E46428AC0E3B009D6C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3130E46628AC11B1009D6C5D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		3130E46828AC121C009D6C5D /* NotificationPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPublisher.swift; sourceTree = "<group>"; };
-		3142C6E828ABD08700029F65 /* SystemSounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SystemSounds.swift; path = "../../../../../Users/alfie/Library/Mobile Documents/com~apple~CloudDocs/Documents/Xcode Projects/RevisionApp/RevisionApp/Study/Pomodoro/Models/SystemSounds.swift"; sourceTree = "<group>"; };
+		3130E46F28AC362F009D6C5D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		31648F6528A983EE00501096 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		31648F6728A9844200501096 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
 		31648F6928A9862800501096 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -44,6 +44,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31648F6428A9758200501096 /* CircularProgress in Frameworks */,
+				3130E46E28AC3579009D6C5D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,9 +70,8 @@
 		31FF1A3628A96CC80048DD49 /* Pomodoro */ = {
 			isa = PBXGroup;
 			children = (
+				3130E46F28AC362F009D6C5D /* GoogleService-Info.plist */,
 				3130E46828AC121C009D6C5D /* NotificationPublisher.swift */,
-				3130E46428AC0E3B009D6C5D /* Info.plist */,
-				3142C6E828ABD08700029F65 /* SystemSounds.swift */,
 				31648F6B28A9925800501096 /* Pomodoro.entitlements */,
 				31FF1A3728A96CC80048DD49 /* PomodoroApp.swift */,
 				31FF1A3928A96CC80048DD49 /* MainView.swift */,
@@ -112,6 +112,7 @@
 			name = Pomodoro;
 			packageProductDependencies = (
 				31648F6328A9758200501096 /* CircularProgress */,
+				3130E46D28AC3579009D6C5D /* FirebaseAnalyticsWithoutAdIdSupport */,
 			);
 			productName = Pomodoro;
 			productReference = 31FF1A3428A96CC80048DD49 /* Pomodoro.app */;
@@ -144,6 +145,7 @@
 			mainGroup = 31FF1A2B28A96CC80048DD49;
 			packageReferences = (
 				31648F6228A9758200501096 /* XCRemoteSwiftPackageReference "CircularProgressSwiftUI" */,
+				3130E46C28AC3579009D6C5D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 31FF1A3528A96CC80048DD49 /* Products */;
 			projectDirPath = "";
@@ -160,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31FF1A3F28A96CC90048DD49 /* Preview Assets.xcassets in Resources */,
+				3130E47028AC362F009D6C5D /* GoogleService-Info.plist in Resources */,
 				31DB6B2528AA536700989BD0 /* Localizable.strings in Resources */,
 				31FF1A3C28A96CC90048DD49 /* Assets.xcassets in Resources */,
 			);
@@ -176,7 +179,6 @@
 				3130E46728AC11B1009D6C5D /* Helpers.swift in Sources */,
 				31FF1A3A28A96CC80048DD49 /* MainView.swift in Sources */,
 				3130E46928AC121C009D6C5D /* NotificationPublisher.swift in Sources */,
-				3142C6E928ABD08700029F65 /* SystemSounds.swift in Sources */,
 				31648F6628A983EE00501096 /* ClockView.swift in Sources */,
 				31648F6828A9844200501096 /* PomodoroTimer.swift in Sources */,
 				31FF1A3828A96CC80048DD49 /* PomodoroApp.swift in Sources */,
@@ -324,7 +326,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pomodoro/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Pomo;
+				INFOPLIST_KEY_CFBundleDisplayName = Focus;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -360,7 +362,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pomodoro/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Pomo;
+				INFOPLIST_KEY_CFBundleDisplayName = Focus;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -407,6 +409,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3130E46C28AC3579009D6C5D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 		31648F6228A9758200501096 /* XCRemoteSwiftPackageReference "CircularProgressSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ArnavMotwani/CircularProgressSwiftUI";
@@ -418,6 +428,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3130E46D28AC3579009D6C5D /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3130E46C28AC3579009D6C5D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
 		31648F6328A9758200501096 /* CircularProgress */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 31648F6228A9758200501096 /* XCRemoteSwiftPackageReference "CircularProgressSwiftUI" */;

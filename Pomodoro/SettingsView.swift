@@ -16,18 +16,11 @@ struct SettingsView: View {
     @State private var color1: Color = UserDefaults.standard.color(forKey: "color1")
     @State private var background: Color = UserDefaults.standard.color(forKey: "background")
     @State private var textColor: Color = UserDefaults.standard.color(forKey: "textColor")
-    
-    @State private var soundID: UInt32 = UInt32(UserDefaults.standard.integer(forKey: "completionSound"))
-    
-    @State private var id = 0
-    @State private var soundName = "Alarm"
 
     let inSession: Bool
     let studyTimeOptions = [1, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
     let breakTimeOptions = [1, 5, 10, 15, 20, 25, 30]
     let longBreakTimeOptions = [15, 20, 25, 30, 35, 40, 45]
-    let soundOptions = [0, 1005, 1016, 1320, 1321, 1322, 1327, 1332]
-    let soundNames = ["None", "Alarm", "Tweet", "Anticipate", "Bloom", "Calypso", "Minuet", "Suspense"]
     var body: some View {
         Form {
             Section(content: {
@@ -59,16 +52,6 @@ struct SettingsView: View {
                 .disabled(inSession)
                 .onChange(of: longBreakTime) { _ in
                     UserDefaults.standard.set(longBreakTime * 60, forKey: "longBreakTime")
-                }
-                
-                Picker("Completion sound", selection: $soundName) {
-                    ForEach(soundNames, id: \.self) {
-                        Text($0)
-                    }
-                }
-                .disabled(inSession)
-                .onChange(of: soundName) { _ in
-                    AudioServicesPlaySystemSound((SystemSounds.all.first(where: { $0.title == soundName }))!.id)
                 }
                 
                 Stepper(value: $sessionsUntilLongBreak, label: {

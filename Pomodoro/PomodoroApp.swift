@@ -6,7 +6,19 @@
 //
 
 import SwiftUI
-import AVFAudio
+import FirebaseCore
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        print("Launch!")
+        FirebaseApp.configure()
+        return true
+    }
+    func applicationWillTerminate(_ application: UIApplication) {
+        print("Terminated")
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    }
+}
 
 @main
 struct PomodoroApp: App {
@@ -22,8 +34,6 @@ struct PomodoroApp: App {
             UserDefaults.standard.set(1800, forKey: "longBreakTime")
             // Sessions before long break
             UserDefaults.standard.set(5, forKey: "sessionsUntilLongBreak")
-            // Completion sound ID
-            UserDefaults.standard.set(1005, forKey: "completionSound")
             // Main ring colour
             UserDefaults.standard.setColor(.green, forKey: "color1")
             // Background colour
@@ -34,6 +44,8 @@ struct PomodoroApp: App {
             UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
         }
     }
+    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var body: some Scene {
         WindowGroup {

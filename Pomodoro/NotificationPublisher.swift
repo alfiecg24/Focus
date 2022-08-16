@@ -23,10 +23,7 @@ class NotificationPublisher: NSObject {
         if let delayInterval =  delayInterval {
             delayTimeTrigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(delayInterval), repeats: false)
         }
-        
-        notificationContent.sound = UNNotificationSound.init(named:UNNotificationSoundName(rawValue: "AlarmSound1.wav"))
-        
-        
+                
         UNUserNotificationCenter.current().delegate = self
         
         let request = UNNotificationRequest(identifier: "TestLocalNotification", content: notificationContent, trigger: delayTimeTrigger)
@@ -45,8 +42,8 @@ class NotificationPublisher: NSObject {
 extension NotificationPublisher: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("The Notification is about to be presented")
-        completionHandler([.badge, .alert, .sound])
+        print("The notification is about to be presented")
+        completionHandler([.badge, .banner, .sound])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
