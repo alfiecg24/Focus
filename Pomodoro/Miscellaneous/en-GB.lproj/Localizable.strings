@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  Pomodoro
+
+  Created by Alfie on 15/08/2022.
+  
+*/
+
+// Localisations for UK/USA
+
+"Text color" = "Text colour";
+"colors" = "colours";

@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "circularprogressswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ArnavMotwani/CircularProgressSwiftUI",
+      "state" : {
+        "revision" : "017efe091152bad991a3a4c935a444facb0ed3d3",
+        "version" : "1.2.2"
+      }
+    }
+  ],
+  "version" : 2
+}
