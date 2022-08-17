@@ -126,7 +126,6 @@ struct MainView: View {
                         }
                     })
                     VStack {
-                        
                         // Skip segment button
                         Button(action: {
                             counter = 0
@@ -141,6 +140,7 @@ struct MainView: View {
                                 mode = switchModes(mode: mode, studyCount: studyCount)
                             }
                             segmentSkips += 1
+                            clearNotifications()
                             let generator = UINotificationFeedbackGenerator()
                             generator.notificationOccurred(.warning)
                         }, label: {
@@ -150,9 +150,9 @@ struct MainView: View {
                                     .foregroundColor(!isActive && inSession && counter != countTo ? .secondary : background)
                                     .frame(width: 130, height: 40)
                                 Text("Skip segment")
-                                      .font(.custom("Avenir Next", size: 17))
-                                      .fontWeight(.light)
-                                      .foregroundColor(!isActive && inSession && counter != countTo ? .green : background)
+                                    .font(.custom("Avenir Next", size: 17))
+                                    .fontWeight(.light)
+                                    .foregroundColor(!isActive && inSession && counter != countTo ? .green : background)
                             }
                         })
                         .padding(.bottom)
@@ -166,6 +166,7 @@ struct MainView: View {
                                 mode = .study
                                 counter = 0
                                 studyCount = 0
+                                clearNotifications()
                                 let generator = UINotificationFeedbackGenerator()
                                 generator.notificationOccurred(.success)
                                 removeSavedDate()
@@ -177,13 +178,15 @@ struct MainView: View {
                                     .foregroundColor(!isActive && inSession && counter != countTo ? .secondary : background)
                                     .frame(width: 130, height: 40)
                                 Text("End session")
-                                      .font(.custom("Avenir Next", size: 17))
-                                      .fontWeight(.light)
-                                      .foregroundColor(!isActive && inSession && counter != countTo ? .red : background)
+                                    .font(.custom("Avenir Next", size: 17))
+                                    .fontWeight(.light)
+                                    .foregroundColor(!isActive && inSession && counter != countTo ? .red : background)
                             }
                         })
                     }
                     .padding()
+                    .hiddenConditionally(isHidden: !(!isActive && inSession && counter != countTo))
+                    
                 }
                 .onAppear {
                     // Refresh times if changed in settings
@@ -337,11 +340,17 @@ struct MainView: View {
         // Clear all scheduled notifications
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
-
+    
 }
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+    }
+}
+
+extension View {
+    func hiddenConditionally(isHidden: Bool) -> some View {
+        isHidden ? AnyView(self.hidden()) : AnyView(self)
     }
 }
