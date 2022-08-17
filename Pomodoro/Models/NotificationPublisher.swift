@@ -18,6 +18,9 @@ class NotificationPublisher: NSObject {
         notificationContent.subtitle = subtitle
         notificationContent.body = body
         
+        // Time sensitive
+        notificationContent.interruptionLevel = .timeSensitive
+        
         var delayTimeTrigger: UNTimeIntervalNotificationTrigger?
         
         if let delayInterval =  delayInterval {

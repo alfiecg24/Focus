@@ -10,9 +10,7 @@ import Foundation
 // Helpers for backgrounding the timer
 
 func getTimeDifference(startDate: Date) -> (Int){
-    let calendar = Calendar.current
-    let components = calendar.dateComponents([.hour, .minute, .second], from: startDate, to: Date())
-    return (components.second!)
+    return (Int)(Date.now.timeIntervalSince(startDate))
 }
 
 func removeSavedDate(){

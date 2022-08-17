@@ -252,16 +252,19 @@ struct MainView: View {
                     clearNotifications()
                     setupLocalNotificationsFor()
                     let defaults = UserDefaults.standard
-                    defaults.set(Date(), forKey: "saveTime")
+                    defaults.set(Date.now, forKey: "saveTime")
                     print(Date())
                 }
                 // App returns to foreground
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                     inBackground = false
                     print("App returning to the foreground")
+                    print("Saved date: \(UserDefaults.standard.object(forKey: "saveTime") as! Date)")
+                    print("Current date: \(Date.now)")
                     if let saveDate = UserDefaults.standard.object(forKey: "saveTime") as? Date {
                         // Calculate time in background
                         countDiff = getTimeDifference(startDate: saveDate)
+                        print("You were gone for \(countDiff) seconds, adding to counter")
                         if isActive {
                             refresh(seconds: countDiff)
                         }
@@ -284,6 +287,7 @@ struct MainView: View {
                             }
                             
                             clearNotifications()
+                            setupLocalNotificationsFor()
                         } else {
                             removeSavedDate()
                             time.upstream.connect().cancel()
