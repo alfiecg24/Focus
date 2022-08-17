@@ -82,7 +82,7 @@ struct MainView: View {
                     // Circle view + clock in the middle
                     ZStack {
                         CircularProgressView(count: counter, total: countTo, progress: progress, fill: (counter == countTo ? LinearGradient(gradient: Gradient(colors: [Color.green]), startPoint: .top, endPoint: .bottom) : LinearGradient(gradient: Gradient(colors: [color1]), startPoint: .top, endPoint: .bottom)), showText: false, showBottomText: false)
-                            .padding(50)
+                            .padding(.horizontal, 20)
                         Clock(counter: counter, countTo: countTo, textColor: textColor)
                     }
                     // Play/pause button
