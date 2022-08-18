@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "31FF1A3328A96CC80048DD49"
-               BuildableName = "Pomodoro.app"
-               BlueprintName = "Pomodoro"
-               ReferencedContainer = "container:Pomodoro.xcodeproj">
+               BuildableName = "Focus.app"
+               BlueprintName = "Focus"
+               ReferencedContainer = "container:Focus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "31FF1A3328A96CC80048DD49"
-            BuildableName = "Pomodoro.app"
-            BlueprintName = "Pomodoro"
-            ReferencedContainer = "container:Pomodoro.xcodeproj">
+            BuildableName = "Focus.app"
+            BlueprintName = "Focus"
+            ReferencedContainer = "container:Focus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "31FF1A3328A96CC80048DD49"
-            BuildableName = "Pomodoro.app"
-            BlueprintName = "Pomodoro"
-            ReferencedContainer = "container:Pomodoro.xcodeproj">
+            BuildableName = "Focus.app"
+            BlueprintName = "Focus"
+            ReferencedContainer = "container:Focus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

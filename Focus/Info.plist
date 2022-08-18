@@ -6,8 +6,6 @@
 	<string>ca-app-pub-4800768255188443~3881487101</string>
 	<key>GADIsAdManagerApp</key>
 	<true/>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

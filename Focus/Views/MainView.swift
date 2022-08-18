@@ -254,6 +254,7 @@ struct MainView: View {
                     setupLocalNotificationsFor()
                     let defaults = UserDefaults.standard
                     defaults.set(Date.now, forKey: "saveTime")
+                    defaults.set(counter, forKey: "saveCount")
                     print(Date())
                 }
                 // App returns to foreground
@@ -265,9 +266,11 @@ struct MainView: View {
                     if let saveDate = UserDefaults.standard.object(forKey: "saveTime") as? Date {
                         // Calculate time in background
                         countDiff = getTimeDifference(startDate: saveDate)
+                        let saveCount = UserDefaults.standard.integer(forKey: "saveCount")
                         print("You were gone for \(countDiff) seconds, adding to counter")
                         if isActive {
-                            refresh(seconds: countDiff)
+                            counter = saveCount + countDiff
+                            
                         }
                         // Timer is finished
                         if countDiff >= countTo || counter >= countTo {
@@ -306,6 +309,8 @@ struct MainView: View {
                 })
             }
         }
+        .navigationViewStyle(.stack)
+
     }
     func refresh(seconds: Int) {
         counter += seconds

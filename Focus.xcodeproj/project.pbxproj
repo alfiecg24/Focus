@@ -30,12 +30,12 @@
 		3130E46F28AC362F009D6C5D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		31648F6528A983EE00501096 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		31648F6928A9862800501096 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		31648F6B28A9925800501096 /* Pomodoro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pomodoro.entitlements; sourceTree = "<group>"; };
+		31648F6B28A9925800501096 /* Focus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Focus.entitlements; sourceTree = "<group>"; };
 		319EA47628AC3ECD00E660AA /* BannerAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAd.swift; sourceTree = "<group>"; };
 		319EA47828AC434A00E660AA /* InterstitialAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAd.swift; sourceTree = "<group>"; };
 		319EA48128AC55EC00E660AA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		31DB6B2628AA536700989BD0 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		31FF1A3428A96CC80048DD49 /* Pomodoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pomodoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		31FF1A3428A96CC80048DD49 /* Focus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Focus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31FF1A3728A96CC80048DD49 /* PomodoroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroApp.swift; sourceTree = "<group>"; };
 		31FF1A3928A96CC80048DD49 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		31FF1A3B28A96CC90048DD49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		31FF1A2B28A96CC80048DD49 = {
 			isa = PBXGroup;
 			children = (
-				31FF1A3628A96CC80048DD49 /* Pomodoro */,
+				31FF1A3628A96CC80048DD49 /* Focus */,
 				31FF1A3528A96CC80048DD49 /* Products */,
 				4C375380E6F44F99003E7777 /* Pods */,
 				8044332D29909F7875D75A53 /* Frameworks */,
@@ -111,22 +111,22 @@
 		31FF1A3528A96CC80048DD49 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				31FF1A3428A96CC80048DD49 /* Pomodoro.app */,
+				31FF1A3428A96CC80048DD49 /* Focus.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		31FF1A3628A96CC80048DD49 /* Pomodoro */ = {
+		31FF1A3628A96CC80048DD49 /* Focus */ = {
 			isa = PBXGroup;
 			children = (
 				3130E46F28AC362F009D6C5D /* GoogleService-Info.plist */,
-				31648F6B28A9925800501096 /* Pomodoro.entitlements */,
+				31648F6B28A9925800501096 /* Focus.entitlements */,
 				319EA48028AC53D200E660AA /* Miscellaneous */,
 				319EA47F28AC53B400E660AA /* Models */,
 				319EA47E28AC539E00E660AA /* Views */,
 				319EA47528AC3EBE00E660AA /* AdMob */,
 			);
-			path = Pomodoro;
+			path = Focus;
 			sourceTree = "<group>";
 		};
 		31FF1A3D28A96CC90048DD49 /* Preview Content */ = {
@@ -157,9 +157,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		31FF1A3328A96CC80048DD49 /* Pomodoro */ = {
+		31FF1A3328A96CC80048DD49 /* Focus */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 31FF1A4228A96CC90048DD49 /* Build configuration list for PBXNativeTarget "Pomodoro" */;
+			buildConfigurationList = 31FF1A4228A96CC90048DD49 /* Build configuration list for PBXNativeTarget "Focus" */;
 			buildPhases = (
 				2F90BA6D6946F7ECF705F9DF /* [CP] Check Pods Manifest.lock */,
 				31FF1A3028A96CC80048DD49 /* Sources */,
@@ -171,12 +171,12 @@
 			);
 			dependencies = (
 			);
-			name = Pomodoro;
+			name = Focus;
 			packageProductDependencies = (
 				31648F6328A9758200501096 /* CircularProgress */,
 			);
 			productName = Pomodoro;
-			productReference = 31FF1A3428A96CC80048DD49 /* Pomodoro.app */;
+			productReference = 31FF1A3428A96CC80048DD49 /* Focus.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -194,7 +194,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 31FF1A2F28A96CC80048DD49 /* Build configuration list for PBXProject "Pomodoro" */;
+			buildConfigurationList = 31FF1A2F28A96CC80048DD49 /* Build configuration list for PBXProject "Focus" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -211,7 +211,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				31FF1A3328A96CC80048DD49 /* Pomodoro */,
+				31FF1A3328A96CC80048DD49 /* Focus */,
 			);
 		};
 /* End PBXProject section */
@@ -335,6 +335,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = /Volumes/Development/App/Pomodoro/Focus/Pomodoro.entitlements;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -395,6 +396,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = /Volumes/Development/App/Pomodoro/Focus/Pomodoro.entitlements;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -423,14 +425,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Pomodoro/Pomodoro.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Focus/Focus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_ASSET_PATHS = "\"Pomodoro/Miscellaneous/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"Focus/Miscellaneous/Preview Content\"";
 				DEVELOPMENT_TEAM = 76V43E9CWT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Pomodoro/Info.plist;
+				INFOPLIST_FILE = Focus/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Focus;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This will be used to present adverts tailored to your interests.";
@@ -438,13 +440,14 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -456,7 +459,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -466,14 +469,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Pomodoro/Pomodoro.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Focus/Focus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_ASSET_PATHS = "\"Pomodoro/Miscellaneous/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"Focus/Miscellaneous/Preview Content\"";
 				DEVELOPMENT_TEAM = 76V43E9CWT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Pomodoro/Info.plist;
+				INFOPLIST_FILE = Focus/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Focus;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This will be used to present adverts tailored to your interests.";
@@ -481,13 +484,14 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Alfie.Pomodoro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -495,14 +499,14 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		31FF1A2F28A96CC80048DD49 /* Build configuration list for PBXProject "Pomodoro" */ = {
+		31FF1A2F28A96CC80048DD49 /* Build configuration list for PBXProject "Focus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				31FF1A4028A96CC90048DD49 /* Debug */,
@@ -511,7 +515,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		31FF1A4228A96CC90048DD49 /* Build configuration list for PBXNativeTarget "Pomodoro" */ = {
+		31FF1A4228A96CC90048DD49 /* Build configuration list for PBXNativeTarget "Focus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				31FF1A4328A96CC90048DD49 /* Debug */,
