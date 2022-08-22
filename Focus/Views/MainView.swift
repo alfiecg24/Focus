@@ -102,7 +102,7 @@ struct MainView: View {
                         // Resets existing notifications and reschedules
                         if !isActive {
                             clearNotifications()
-                        } else if isActive {
+                        } else {
                             clearNotifications()
                             setupLocalNotificationsFor()
                         }
@@ -251,7 +251,9 @@ struct MainView: View {
                     print("App going to the background")
                     // Clear existing notifications
                     clearNotifications()
-                    setupLocalNotificationsFor()
+                    if isActive {
+                        setupLocalNotificationsFor()
+                    }
                     let defaults = UserDefaults.standard
                     defaults.set(Date.now, forKey: "saveTime")
                     defaults.set(counter, forKey: "saveCount")

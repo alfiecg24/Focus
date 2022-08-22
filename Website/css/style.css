@@ -7,3 +7,16 @@ body {
     background-color: #5FB4F8;
     font-family: "Avenir Next", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
+
+.contact {
+    text-align: center;
+    background-color: #5FB4F8;
+    color: white;
+    width: 500px;
+    height: 200px;
+    font-family: "Avenir Next", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    border: dashed;
+    resize: none;
+    outline: none;
+    font-size: large;
+}
