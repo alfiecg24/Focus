@@ -21,7 +21,7 @@ struct MainView: View {
     // State variables - private because they won't be accessed outside this scope
     @State private var isActive = false
     @State private var inSession = false
-    @State private var counter: Int = 849
+    @State private var counter: Int = 0
     @State private var studyCount = 0
     @State private var countDiff = 0
     @State private var mode = Mode.study
@@ -171,6 +171,7 @@ struct MainView: View {
                                 let generator = UINotificationFeedbackGenerator()
                                 generator.notificationOccurred(.success)
                                 removeSavedDate()
+                                //adsViewModel.showInterstitial.toggle()
                             }
                         }, label: {
                             ZStack {
