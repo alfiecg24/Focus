@@ -81,30 +81,32 @@ struct MainView: View {
                         .fontWeight(.semibold)
                     // Circle view + clock in the middle
                     ZStack {
-                        CircularProgressView(count: counter, total: countTo, progress: progress, fill: (counter == countTo ? LinearGradient(gradient: Gradient(colors: [Color.green]), startPoint: .top, endPoint: .bottom) : LinearGradient(gradient: Gradient(colors: [color1]), startPoint: .top, endPoint: .bottom)), showText: false, showBottomText: false)
+                        CircularProgressView(count: counter, total: countTo, progress: progress, fill: (counter == countTo ? LinearGradient(gradient: Gradient(colors: [Color.green]), startPoint: .top, endPoint: .bottom) : LinearGradient(gradient: Gradient(colors: [color1]), startPoint: .top, endPoint: .bottom)), lineWidth: 15, showText: false, showBottomText: false)
                             .padding(.horizontal, UIScreen.main.bounds.width/8)
                             .padding(.vertical, 15)
                         Clock(counter: counter, countTo: countTo, textColor: textColor)
                     }
                     // Play/pause button
                     Button(action: {
-                        // Checks if ready to start next timer period
-                        if counter == countTo {
-                            time.upstream.connect().cancel()
-                        }
-                        if counter != countTo {
-                            if !inSession {
-                                inSession.toggle()
+                        withAnimation {
+                            // Checks if ready to start next timer period
+                            if counter == countTo {
+                                time.upstream.connect().cancel()
                             }
-                            
-                        }
-                        isActive.toggle()
-                        // Resets existing notifications and reschedules
-                        if !isActive {
-                            clearNotifications()
-                        } else {
-                            clearNotifications()
-                            setupLocalNotificationsFor()
+                            if counter != countTo {
+                                if !inSession {
+                                    inSession.toggle()
+                                }
+                                
+                            }
+                            isActive.toggle()
+                            // Resets existing notifications and reschedules
+                            if !isActive {
+                                clearNotifications()
+                            } else {
+                                clearNotifications()
+                                setupLocalNotificationsFor()
+                            }
                         }
                         let generator = UIImpactFeedbackGenerator(style: .medium)
                         generator.impactOccurred(intensity: 1.0)
@@ -126,69 +128,71 @@ struct MainView: View {
                             }
                         }
                     })
-                    VStack {
-                        // Skip segment button
-                        Button(action: {
-                            counter = 0
-                            if mode == .study {
-                                studyCount += 1
-                                mode = switchModes(mode: mode, studyCount: studyCount)
-                            }
-                            else if mode == .longStudyBreak {
-                                mode = switchModes(mode: mode, studyCount: studyCount)
-                                studyCount = 0
-                            } else {
-                                mode = switchModes(mode: mode, studyCount: studyCount)
-                            }
-                            segmentSkips += 1
-                            clearNotifications()
-                            let generator = UINotificationFeedbackGenerator()
-                            generator.notificationOccurred(.warning)
-                        }, label: {
-                            ZStack {
-                                RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                                    .opacity(!isActive && inSession && counter != countTo ? 0.3 : 1.0)
-                                    .foregroundColor(!isActive && inSession && counter != countTo ? .secondary : background)
-                                    .frame(width: 130, height: 40)
-                                Text("Skip segment")
-                                    .font(.custom("Avenir Next", size: 17))
-                                    .fontWeight(.light)
-                                    .foregroundColor(!isActive && inSession && counter != countTo ? .green : background)
-                            }
-                        })
-                        .padding(.bottom)
-                        
-                        // End session button
-                        Button(action: {
-                            // Timer paused, in session and timer is not completed
-                            if !isActive && inSession && counter != countTo {
-                                isActive = false
-                                inSession = false
-                                mode = .study
+                    if (!isActive && inSession && counter != countTo) {
+                        VStack {
+                            // Skip segment button
+                            Button(action: {
                                 counter = 0
-                                studyCount = 0
+                                if mode == .study {
+                                    studyCount += 1
+                                    mode = switchModes(mode: mode, studyCount: studyCount)
+                                }
+                                else if mode == .longStudyBreak {
+                                    mode = switchModes(mode: mode, studyCount: studyCount)
+                                    studyCount = 0
+                                } else {
+                                    mode = switchModes(mode: mode, studyCount: studyCount)
+                                }
+                                segmentSkips += 1
                                 clearNotifications()
                                 let generator = UINotificationFeedbackGenerator()
-                                generator.notificationOccurred(.success)
-                                removeSavedDate()
-                                //adsViewModel.showInterstitial.toggle()
-                            }
-                        }, label: {
-                            ZStack {
-                                RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                                    .opacity(!isActive && inSession && counter != countTo ? 0.3 : 1.0)
-                                    .foregroundColor(!isActive && inSession && counter != countTo ? .secondary : background)
-                                    .frame(width: 130, height: 40)
-                                Text("End session")
-                                    .font(.custom("Avenir Next", size: 17))
-                                    .fontWeight(.light)
-                                    .foregroundColor(!isActive && inSession && counter != countTo ? .red : background)
-                            }
-                        })
+                                generator.notificationOccurred(.warning)
+                            }, label: {
+                                ZStack {
+                                    RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                                        .opacity(!isActive && inSession && counter != countTo ? 0.3 : 1.0)
+                                        .foregroundColor(!isActive && inSession && counter != countTo ? .secondary : background)
+                                        .frame(width: 130, height: 40)
+                                    Text("Skip segment")
+                                        .font(.custom("Avenir Next", size: 17))
+                                        .fontWeight(.light)
+                                        .foregroundColor(!isActive && inSession && counter != countTo ? .green : background)
+                                }
+                            })
+                            .padding(.bottom)
+                            
+                            // End session button
+                            Button(action: {
+                                // Timer paused, in session and timer is not completed
+                                if !isActive && inSession && counter != countTo {
+                                    isActive = false
+                                    inSession = false
+                                    mode = .study
+                                    counter = 0
+                                    studyCount = 0
+                                    clearNotifications()
+                                    let generator = UINotificationFeedbackGenerator()
+                                    generator.notificationOccurred(.success)
+                                    removeSavedDate()
+                                    //adsViewModel.showInterstitial.toggle()
+                                }
+                            }, label: {
+                                ZStack {
+                                    RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                                        .opacity(!isActive && inSession && counter != countTo ? 0.3 : 1.0)
+                                        .foregroundColor(!isActive && inSession && counter != countTo ? .secondary : background)
+                                        .frame(width: 130, height: 40)
+                                    Text("End session")
+                                        .font(.custom("Avenir Next", size: 17))
+                                        .fontWeight(.light)
+                                        .foregroundColor(!isActive && inSession && counter != countTo ? .red : background)
+                                }
+                            })
+                        }
+                        .padding()
+    //                    .hiddenConditionally(isHidden: !(!isActive && inSession && counter != countTo))
+    //
                     }
-                    .padding()
-                    .hiddenConditionally(isHidden: !(!isActive && inSession && counter != countTo))
-                    
                 }
                 .onAppear {
                     // Refresh times if changed in settings
