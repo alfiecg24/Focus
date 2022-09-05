@@ -72,10 +72,8 @@
 		319EA47E28AC539E00E660AA /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				31FF1A3928A96CC80048DD49 /* MainView.swift */,
-				31BCB6E028C67BF900B1C57E /* PlannerView.swift */,
-				31648F6528A983EE00501096 /* ClockView.swift */,
-				31648F6928A9862800501096 /* SettingsView.swift */,
+				31D049BE28C6817400454441 /* Planner */,
+				31D049BD28C6816C00454441 /* Timer */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -99,6 +97,24 @@
 				3130E46628AC11B1009D6C5D /* Helpers.swift */,
 			);
 			path = Miscellaneous;
+			sourceTree = "<group>";
+		};
+		31D049BD28C6816C00454441 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				31FF1A3928A96CC80048DD49 /* MainView.swift */,
+				31648F6528A983EE00501096 /* ClockView.swift */,
+				31648F6928A9862800501096 /* SettingsView.swift */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		31D049BE28C6817400454441 /* Planner */ = {
+			isa = PBXGroup;
+			children = (
+				31BCB6E028C67BF900B1C57E /* PlannerView.swift */,
+			);
+			path = Planner;
 			sourceTree = "<group>";
 		};
 		31FF1A2B28A96CC80048DD49 = {

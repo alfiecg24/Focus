@@ -165,11 +165,13 @@ struct MainView: View {
                             Button(action: {
                                 // Timer paused, in session and timer is not completed
                                 if !isActive && inSession && counter != countTo {
-                                    isActive = false
-                                    inSession = false
-                                    mode = .study
-                                    counter = 0
-                                    studyCount = 0
+                                    withAnimation {
+                                        isActive = false
+                                        inSession = false
+                                        mode = .study
+                                        counter = 0
+                                        studyCount = 0
+                                    }
                                     clearNotifications()
                                     let generator = UINotificationFeedbackGenerator()
                                     generator.notificationOccurred(.success)
