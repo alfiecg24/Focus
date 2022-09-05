@@ -44,7 +44,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 print("Notification permissions granted!")
             }
         }
-        
         return true
     }
     func applicationWillTerminate(_ application: UIApplication) {
@@ -59,7 +58,16 @@ struct PomodoroApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
         WindowGroup {
-            MainView()
+            TabView {
+                MainView()
+                    .tabItem({
+                        Label("Timer", systemImage: "deskclock")
+                    })
+                PlannerView()
+                    .tabItem({
+                        Label("Planner", systemImage: "calendar.day.timeline.left")
+                    })
+            }
         }
     }
 }

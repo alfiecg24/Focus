@@ -17,6 +17,7 @@
 		319EA47728AC3ECD00E660AA /* BannerAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319EA47628AC3ECD00E660AA /* BannerAd.swift */; };
 		319EA47928AC434A00E660AA /* InterstitialAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319EA47828AC434A00E660AA /* InterstitialAd.swift */; };
 		319EA48228AC55EC00E660AA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 319EA48128AC55EC00E660AA /* Launch Screen.storyboard */; };
+		31BCB6E128C67BF900B1C57E /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCB6E028C67BF900B1C57E /* PlannerView.swift */; };
 		31DB6B2528AA536700989BD0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31DB6B2728AA536700989BD0 /* Localizable.strings */; };
 		31FF1A3828A96CC80048DD49 /* PomodoroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FF1A3728A96CC80048DD49 /* PomodoroApp.swift */; };
 		31FF1A3A28A96CC80048DD49 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FF1A3928A96CC80048DD49 /* MainView.swift */; };
@@ -34,6 +35,7 @@
 		319EA47628AC3ECD00E660AA /* BannerAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAd.swift; sourceTree = "<group>"; };
 		319EA47828AC434A00E660AA /* InterstitialAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAd.swift; sourceTree = "<group>"; };
 		319EA48128AC55EC00E660AA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		31BCB6E028C67BF900B1C57E /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
 		31DB6B2628AA536700989BD0 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		31FF1A3428A96CC80048DD49 /* Focus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Focus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31FF1A3728A96CC80048DD49 /* PomodoroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroApp.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				31FF1A3928A96CC80048DD49 /* MainView.swift */,
+				31BCB6E028C67BF900B1C57E /* PlannerView.swift */,
 				31648F6528A983EE00501096 /* ClockView.swift */,
 				31648F6928A9862800501096 /* SettingsView.swift */,
 			);
@@ -283,6 +286,7 @@
 				31FF1A3A28A96CC80048DD49 /* MainView.swift in Sources */,
 				3130E46928AC121C009D6C5D /* NotificationPublisher.swift in Sources */,
 				319EA47928AC434A00E660AA /* InterstitialAd.swift in Sources */,
+				31BCB6E128C67BF900B1C57E /* PlannerView.swift in Sources */,
 				319EA47728AC3ECD00E660AA /* BannerAd.swift in Sources */,
 				31648F6628A983EE00501096 /* ClockView.swift in Sources */,
 				31FF1A3828A96CC80048DD49 /* PomodoroApp.swift in Sources */,
