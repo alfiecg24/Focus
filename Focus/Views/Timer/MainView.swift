@@ -81,7 +81,7 @@ struct MainView: View {
                         .fontWeight(.semibold)
                     // Circle view + clock in the middle
                     ZStack {
-                        CircularProgressView(count: counter, total: countTo, progress: progress, fill: (counter == countTo ? LinearGradient(gradient: Gradient(colors: [Color.green]), startPoint: .top, endPoint: .bottom) : LinearGradient(gradient: Gradient(colors: [color1]), startPoint: .top, endPoint: .bottom)), lineWidth: 15, showText: false, showBottomText: false)
+                        CircularProgressView(count: counter, total: countTo, progress: progress, fill: (counter == countTo ? LinearGradient(gradient: Gradient(colors: [Color.green]), startPoint: .top, endPoint: .bottom) : LinearGradient(gradient: Gradient(colors: [color1]), startPoint: .top, endPoint: .bottom)), showText: false, showBottomText: false)
                             .padding(.horizontal, UIScreen.main.bounds.width/8)
                             .padding(.vertical, 15)
                         Clock(counter: counter, countTo: countTo, textColor: textColor)
@@ -101,10 +101,8 @@ struct MainView: View {
                             }
                             isActive.toggle()
                             // Resets existing notifications and reschedules
-                            if !isActive {
-                                clearNotifications()
-                            } else {
-                                clearNotifications()
+                            clearNotifications()
+                            if isActive {
                                 setupLocalNotificationsFor()
                             }
                         }
@@ -302,6 +300,7 @@ struct MainView: View {
                             clearNotifications()
                             setupLocalNotificationsFor()
                         } else {
+                            LOG("Timer is not finished!")
                             removeSavedDate()
                             time.upstream.connect().cancel()
                         }
@@ -328,6 +327,8 @@ struct MainView: View {
     func setupLocalNotificationsFor() {
         
         print("Setting up local notifications")
+        LOG("Setting up notifications")
+
         
         // Get time difference
         let countInterval = countTo - counter
@@ -356,6 +357,7 @@ struct MainView: View {
     
     func clearNotifications() {
         print("Clearing notifications")
+        LOG("Clearing notifications")
         // Clear all scheduled notifications
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
@@ -372,4 +374,11 @@ extension View {
     func hiddenConditionally(isHidden: Bool) -> some View {
         isHidden ? AnyView(self.hidden()) : AnyView(self)
     }
+}
+
+func LOG(_ message: String) {
+    var log = UserDefaults.standard.array(forKey: "log") as! [String]
+    log.append("\(message): \(Date.now.formatted(date: .omitted, time: .standard))")
+    UserDefaults.standard.set(log, forKey: "log")
+
 }

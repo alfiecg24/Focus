@@ -12,6 +12,9 @@ import GoogleMobileAds
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         print("Launch!")
+        var log = UserDefaults.standard.array(forKey: "log") as! [String]
+        log.append("Launch: \(Date.now.formatted(date: .omitted, time: .standard))")
+        UserDefaults.standard.set(log, forKey: "log")
         // Check if user has launched before
         if !UserDefaults.standard.bool(forKey: "hasLaunchedBefore") {
             // Length of study period 1500
@@ -47,6 +50,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
     func applicationWillTerminate(_ application: UIApplication) {
+        var log = UserDefaults.standard.array(forKey: "log") as! [String]
+        log.append("Termination: \(Date.now.formatted(date: .omitted, time: .standard))")
+        UserDefaults.standard.set(log, forKey: "log")
         print("Clearing notifications...")
         // Clear pending notifications if user terminates
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
