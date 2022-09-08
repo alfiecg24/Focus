@@ -12,7 +12,7 @@ import GoogleMobileAds
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         print("Launch!")
-        var log = UserDefaults.standard.array(forKey: "log") as! [String]
+        var log = [String]()
         log.append("Launch: \(Date.now.formatted(date: .omitted, time: .standard))")
         UserDefaults.standard.set(log, forKey: "log")
         // Check if user has launched before
@@ -31,6 +31,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             UserDefaults.standard.setColor(Color("Background"), forKey: "background")
             // Text colour
             UserDefaults.standard.setColor(.white, forKey: "textColor")
+            let newSubject = Subject(name: "Maths", red: 0, green: 0, blue: 1)
+            do {
+                try UserDefaults.standard.setObject([newSubject], forKey: "subjects")
+                try UserDefaults.standard.setObject([Goal](), forKey: "goals")
+            } catch {
+                print("Could not save subjects/goals to defaults")
+                log.append("Could not save subjects/goals to defaults: \(Date.now.formatted(date: .omitted, time: .standard))")
+                UserDefaults.standard.set(log, forKey: "log")
+            }
             // Avoids this executing on every launch
             UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
         }
@@ -64,16 +73,17 @@ struct PomodoroApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
         WindowGroup {
-            TabView {
-                MainView()
-                    .tabItem({
-                        Label("Timer", systemImage: "deskclock")
-                    })
-                PlannerView()
-                    .tabItem({
-                        Label("Planner", systemImage: "calendar.day.timeline.left")
-                    })
-            }
+//            TabView {
+//                MainView()
+//                    .tabItem({
+//                        Label("Timer", systemImage: "deskclock")
+//                    })
+//                PlannerView()
+//                    .tabItem({
+//                        Label("Planner", systemImage: "calendar.day.timeline.left")
+//                    })
+//            }
+            MainView()
         }
     }
 }

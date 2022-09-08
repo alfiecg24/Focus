@@ -16,7 +16,7 @@ struct Subject: Codable, Hashable {
     var opacity: Double?
 }
 
-struct Goal: Codable {
+struct Goal: Codable, Hashable {
     var name: String
     var subject: Subject
     var deadline: Date

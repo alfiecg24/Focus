@@ -6,25 +6,36 @@
 //
 
 import SwiftUI
-
 struct NewGoalView: View {
     @State private var name = ""
     @State private var deadline = Date.now+86400
     @State private var subject = Subject(name: "", red: 0, green: 0, blue: 0)
-    private var subjects = UserDefaults.standard.array(forKey: "subjects") as! [Subject]
+    private var subjects = try! UserDefaults.standard.getObject(forKey: "subjects", castTo: [Subject].self)
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     var body: some View {
-        Form {
-            TextField("Name", text: $name)
-            Picker("Subject", selection: $subject) {
-                ForEach(subjects, id: \.self) { item in
-                    Text(item.name)
+        NavigationView {
+            Form {
+                TextField("Name", text: $name)
+                Picker("Subject", selection: $subject) {
+                    ForEach(subjects, id: \.self) { item in
+                        Text(item.name)
+                    }
+                }
+                DatePicker("Deadline", selection: $deadline)
+                Button("Finish") {
+                    let goal = Goal(name: name, subject: subject, deadline: deadline)
+                    var existingGoals = try! UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self)
+                    existingGoals.append(goal)
+                    try! UserDefaults.standard.setObject(existingGoals, forKey: "goals")
+                    presentationMode.wrappedValue.dismiss()
                 }
             }
-            DatePicker("Deadline", selection: $deadline)
-            Button("Finish")
-        }
-        .onAppear {
-            subject = subjects[0]
+            .onAppear {
+                subject = subjects[0]
+            }
+            .navigationBarHidden(true)
         }
     }
 }
