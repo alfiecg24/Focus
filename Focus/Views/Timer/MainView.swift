@@ -174,7 +174,7 @@ struct MainView: View {
                                     let generator = UINotificationFeedbackGenerator()
                                     generator.notificationOccurred(.success)
                                     removeSavedDate()
-                                    //adsViewModel.showInterstitial.toggle()
+                                    adsViewModel.showInterstitial.toggle()
                                 }
                             }, label: {
                                 ZStack {
@@ -213,7 +213,7 @@ struct MainView: View {
                 .onReceive(time) { time in
                     // Checks if user has skipped 5 segments, shows advert if true
                     if segmentSkips >= 5 && !isActive {
-                        //adsViewModel.showInterstitial.toggle()
+                        adsViewModel.showInterstitial.toggle()
                         segmentSkips = 0
                     }
                     if isActive {
@@ -230,7 +230,7 @@ struct MainView: View {
                                 // Shows advert at the end of a study session
                                 let state = UIApplication.shared.applicationState
                                 if state == .active {
-                                    //adsViewModel.showInterstitial.toggle()
+                                    adsViewModel.showInterstitial.toggle()
                                 }
                                 studyCount += 1
                                 mode = switchModes(mode: mode, studyCount: studyCount)
@@ -239,7 +239,7 @@ struct MainView: View {
                                 // Shows advert at the end of a long study break
                                 let state = UIApplication.shared.applicationState
                                 if state == .active {
-                                    //adsViewModel.showInterstitial.toggle()
+                                    adsViewModel.showInterstitial.toggle()
                                 }
                                 mode = switchModes(mode: mode, studyCount: studyCount)
                                 studyCount = 0

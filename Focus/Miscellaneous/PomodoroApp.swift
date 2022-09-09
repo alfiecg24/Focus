@@ -40,8 +40,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 log.append("Could not save subjects/goals to defaults: \(Date.now.formatted(date: .omitted, time: .standard))")
                 UserDefaults.standard.set(log, forKey: "log")
             }
-            // Avoids this executing on every launch
-            UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
         }
         
         // Initialise Firebase and Google Mobile Ads
@@ -72,6 +70,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct PomodoroApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
+        let previousLaunch = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
         WindowGroup {
 //            TabView {
 //                MainView()
@@ -83,7 +82,11 @@ struct PomodoroApp: App {
 //                        Label("Planner", systemImage: "calendar.day.timeline.left")
 //                    })
 //            }
-            MainView()
+            if previousLaunch {
+                MainView()
+            } else {
+                SplashScreenView()
+            }
         }
     }
 }
