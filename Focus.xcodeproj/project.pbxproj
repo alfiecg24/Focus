@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1A54ED7E79A0A8AD6DD091DF /* Pods_Pomodoro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66B2228D54522E2A48A9668 /* Pods_Pomodoro.framework */; };
 		311FE7A428CC8F90003D7E3D /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311FE7A328CC8F90003D7E3D /* SplashScreenView.swift */; };
+		311FE7A628CCB07A003D7E3D /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311FE7A528CCB07A003D7E3D /* UIDevice+Extension.swift */; };
 		3130E46728AC11B1009D6C5D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3130E46628AC11B1009D6C5D /* Helpers.swift */; };
 		3130E46928AC121C009D6C5D /* NotificationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3130E46828AC121C009D6C5D /* NotificationPublisher.swift */; };
 		3130E47028AC362F009D6C5D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3130E46F28AC362F009D6C5D /* GoogleService-Info.plist */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		311FE7A328CC8F90003D7E3D /* SplashScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		311FE7A528CCB07A003D7E3D /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		3130E46628AC11B1009D6C5D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		3130E46828AC121C009D6C5D /* NotificationPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPublisher.swift; sourceTree = "<group>"; };
 		3130E46F28AC362F009D6C5D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			children = (
 				315B242928C93A0B00F1C6F9 /* UserDefaults+Extension.swift */,
 				315B242B28C9419900F1C6F9 /* UIColor+Extension.swift */,
+				311FE7A528CCB07A003D7E3D /* UIDevice+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31648F6A28A9862800501096 /* SettingsView.swift in Sources */,
+				311FE7A628CCB07A003D7E3D /* UIDevice+Extension.swift in Sources */,
 				3130E46728AC11B1009D6C5D /* Helpers.swift in Sources */,
 				31FF1A3A28A96CC80048DD49 /* MainView.swift in Sources */,
 				315B242528C936BE00F1C6F9 /* NewGoalView.swift in Sources */,
@@ -527,7 +531,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.5.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -571,7 +575,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Alfie.Pomodoro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

@@ -86,46 +86,90 @@ struct MainView: View {
                             .padding(.vertical, 15)
                         Clock(counter: counter, countTo: countTo, textColor: textColor)
                     }
-                    // Play/pause button
-                    Button(action: {
-                        withAnimation {
-                            // Checks if ready to start next timer period
-                            if counter == countTo {
-                                time.upstream.connect().cancel()
-                            }
-                            if counter != countTo {
-                                if !inSession {
-                                    inSession.toggle()
+                    if UIDevice.isPad {
+                        // Play/pause button
+                        Button(action: {
+                            withAnimation {
+                                // Checks if ready to start next timer period
+                                if counter == countTo {
+                                    time.upstream.connect().cancel()
                                 }
-                                
+                                if counter != countTo {
+                                    if !inSession {
+                                        inSession.toggle()
+                                    }
+                                    
+                                }
+                                isActive.toggle()
+                                // Resets existing notifications and reschedules
+                                clearNotifications()
+                                if isActive {
+                                    setupLocalNotificationsFor()
+                                }
                             }
-                            isActive.toggle()
-                            // Resets existing notifications and reschedules
-                            clearNotifications()
-                            if isActive {
-                                setupLocalNotificationsFor()
+                            let generator = UIImpactFeedbackGenerator(style: .medium)
+                            generator.impactOccurred(intensity: 1.0)
+                        }, label: {
+                            ZStack {
+                                RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                                    .opacity(0.3)
+                                    .foregroundColor(Color.secondary)
+                                    .frame(width: 300, height: 75)
+                                if #available(iOS 16.0, *) {
+                                    Label(isActive ? "Pause": "Start", systemImage: isActive ? "pause" : "play")
+                                        .foregroundColor(textColor)
+                                        .font(.custom("Avenir Next", size: 30))
+                                        .fontWeight(.semibold)
+                                } else {
+                                    Label(isActive ? "Pause": "Start", systemImage: isActive ? "pause" : "play")
+                                        .foregroundColor(textColor)
+                                        .font(.custom("Avenir Next", size: 30))
+                                }
                             }
-                        }
-                        let generator = UIImpactFeedbackGenerator(style: .medium)
-                        generator.impactOccurred(intensity: 1.0)
-                    }, label: {
-                        ZStack {
-                            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                                .opacity(0.3)
-                                .foregroundColor(Color.secondary)
-                                .frame(width: 300, height: 75)
-                            if #available(iOS 16.0, *) {
-                                Label(isActive ? "Pause": "Start", systemImage: isActive ? "pause" : "play")
-                                    .foregroundColor(textColor)
-                                    .font(.custom("Avenir Next", size: 30))
-                                    .fontWeight(.semibold)
-                            } else {
-                                Label(isActive ? "Pause": "Start", systemImage: isActive ? "pause" : "play")
-                                    .foregroundColor(textColor)
-                                    .font(.custom("Avenir Next", size: 30))
+                        })
+                        .padding(.bottom, 50)
+                    } else {
+                        // Play/pause button
+                        Button(action: {
+                            withAnimation {
+                                // Checks if ready to start next timer period
+                                if counter == countTo {
+                                    time.upstream.connect().cancel()
+                                }
+                                if counter != countTo {
+                                    if !inSession {
+                                        inSession.toggle()
+                                    }
+                                    
+                                }
+                                isActive.toggle()
+                                // Resets existing notifications and reschedules
+                                clearNotifications()
+                                if isActive {
+                                    setupLocalNotificationsFor()
+                                }
                             }
-                        }
-                    })
+                            let generator = UIImpactFeedbackGenerator(style: .medium)
+                            generator.impactOccurred(intensity: 1.0)
+                        }, label: {
+                            ZStack {
+                                RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                                    .opacity(0.3)
+                                    .foregroundColor(Color.secondary)
+                                    .frame(width: 300, height: 75)
+                                if #available(iOS 16.0, *) {
+                                    Label(isActive ? "Pause": "Start", systemImage: isActive ? "pause" : "play")
+                                        .foregroundColor(textColor)
+                                        .font(.custom("Avenir Next", size: 30))
+                                        .fontWeight(.semibold)
+                                } else {
+                                    Label(isActive ? "Pause": "Start", systemImage: isActive ? "pause" : "play")
+                                        .foregroundColor(textColor)
+                                        .font(.custom("Avenir Next", size: 30))
+                                }
+                            }
+                        })
+                    }
                     if (!isActive && inSession && counter != countTo) {
                         VStack {
                             // Skip segment button
@@ -211,12 +255,14 @@ struct MainView: View {
                 }
                 // Timer mechanism
                 .onReceive(time) { time in
+                    print("Tick")
                     // Checks if user has skipped 5 segments, shows advert if true
                     if segmentSkips >= 5 && !isActive {
                         adsViewModel.showInterstitial.toggle()
                         segmentSkips = 0
                     }
                     if isActive {
+                        print("counter: \(counter)")
                         // Timer active and not yet complete
                         if counter < countTo {
                             counter += 1
@@ -270,43 +316,46 @@ struct MainView: View {
                     print("App returning to the foreground")
                     print("Saved date: \(UserDefaults.standard.object(forKey: "saveTime") as! Date)")
                     print("Current date: \(Date.now)")
-                    if isActive {
-                        if let saveDate = UserDefaults.standard.object(forKey: "saveTime") as? Date {
-                            // Calculate time in background
-                            countDiff = getTimeDifference(startDate: saveDate)
-                            let saveCount = UserDefaults.standard.integer(forKey: "saveCount")
-                            print("You were gone for \(countDiff) seconds, adding to counter")
-                            if isActive {
-                                counter = saveCount + countDiff
-                                
+                    //                    if inSession {
+                    if let saveDate = UserDefaults.standard.object(forKey: "saveTime") as? Date {
+                        // Calculate time in background
+                        countDiff = getTimeDifference(startDate: saveDate)
+                        let saveCount = UserDefaults.standard.integer(forKey: "saveCount")
+                        print("You were gone for \(countDiff) seconds, adding to counter")
+                        if isActive {
+                            print("Active!")
+                            time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+                            counter = saveCount + countDiff
+                        }
+                        // Timer is finished
+                        if countDiff >= countTo || counter >= countTo {
+                            print("Hello")
+                            removeSavedDate()
+                            counter = 0
+                            countDiff = 0
+                            isActive = false
+                            
+                            if mode == .study {
+                                studyCount += 1
+                                mode = switchModes(mode: mode, studyCount: studyCount)
                             }
-                            // Timer is finished
-                            if countDiff >= countTo || counter >= countTo {
-                                removeSavedDate()
-                                counter = 0
-                                countDiff = 0
-                                isActive = false
-                                
-                                if mode == .study {
-                                    studyCount += 1
-                                    mode = switchModes(mode: mode, studyCount: studyCount)
-                                }
-                                else if mode == .longStudyBreak {
-                                    mode = switchModes(mode: mode, studyCount: studyCount)
-                                    studyCount = 0
-                                } else {
-                                    mode = switchModes(mode: mode, studyCount: studyCount)
-                                }
-                                
-                                clearNotifications()
-                                setupLocalNotificationsFor()
+                            else if mode == .longStudyBreak {
+                                mode = switchModes(mode: mode, studyCount: studyCount)
+                                studyCount = 0
                             } else {
-                                LOG("Timer is not finished!")
-                                removeSavedDate()
-                                time.upstream.connect().cancel()
+                                mode = switchModes(mode: mode, studyCount: studyCount)
                             }
+                            
+                            clearNotifications()
+                            setupLocalNotificationsFor()
+                        } else {
+                            LOG("Timer is not finished!")
+                            removeSavedDate()
+                            time.upstream.connect().cancel()
                         }
                     }
+                    //                    }
+                    
                 }
             }
             // Settings button
@@ -320,7 +369,7 @@ struct MainView: View {
             }
         }
         .navigationViewStyle(.stack)
-
+        
     }
     func refresh(seconds: Int) {
         counter += seconds
