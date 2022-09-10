@@ -102,7 +102,7 @@ struct MainView: View {
                                 }
                                 isActive.toggle()
                                 // Resets existing notifications and reschedules
-                                clearNotifications()
+                                clearPendingNotifications()
                                 if isActive {
                                     setupLocalNotificationsFor()
                                 }
@@ -144,7 +144,7 @@ struct MainView: View {
                                 }
                                 isActive.toggle()
                                 // Resets existing notifications and reschedules
-                                clearNotifications()
+                                clearPendingNotifications()
                                 if isActive {
                                     setupLocalNotificationsFor()
                                 }
@@ -186,7 +186,7 @@ struct MainView: View {
                                     mode = switchModes(mode: mode, studyCount: studyCount)
                                 }
                                 segmentSkips += 1
-                                clearNotifications()
+                                clearPendingNotifications()
                                 let generator = UINotificationFeedbackGenerator()
                                 generator.notificationOccurred(.warning)
                             }, label: {
@@ -214,7 +214,7 @@ struct MainView: View {
                                         counter = 0
                                         studyCount = 0
                                     }
-                                    clearNotifications()
+                                    clearPendingNotifications()
                                     let generator = UINotificationFeedbackGenerator()
                                     generator.notificationOccurred(.success)
                                     removeSavedDate()
@@ -271,7 +271,7 @@ struct MainView: View {
                         else if counter == countTo {
                             counter = 0
                             isActive.toggle()
-                            clearNotifications()
+                            clearPendingNotifications()
                             if mode == .study {
                                 // Shows advert at the end of a study session
                                 let state = UIApplication.shared.applicationState
@@ -301,7 +301,7 @@ struct MainView: View {
                     inBackground = true
                     print("App going to the background")
                     // Clear existing notifications
-                    clearNotifications()
+                    clearPendingNotifications()
                     if isActive {
                         setupLocalNotificationsFor()
                     }
@@ -346,7 +346,7 @@ struct MainView: View {
                                 mode = switchModes(mode: mode, studyCount: studyCount)
                             }
                             
-                            clearNotifications()
+                            clearPendingNotifications()
                             setupLocalNotificationsFor()
                         } else {
                             LOG("Timer is not finished!")
@@ -406,13 +406,12 @@ struct MainView: View {
         }
     }
     
-    func clearNotifications() {
+    func clearPendingNotifications() {
         print("Clearing notifications")
         LOG("Clearing notifications")
         // Clear all scheduled notifications
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
-    
 }
 
 struct MainView_Previews: PreviewProvider {
