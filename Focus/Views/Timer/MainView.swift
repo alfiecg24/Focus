@@ -211,12 +211,14 @@ struct MainView: View {
                 }
                 // Timer mechanism
                 .onReceive(time) { time in
+                    print("Tick")
                     // Checks if user has skipped 5 segments, shows advert if true
                     if segmentSkips >= 5 && !isActive {
                         adsViewModel.showInterstitial.toggle()
                         segmentSkips = 0
                     }
                     if isActive {
+                        print("counter: \(counter)")
                         // Timer active and not yet complete
                         if counter < countTo {
                             counter += 1
@@ -270,43 +272,46 @@ struct MainView: View {
                     print("App returning to the foreground")
                     print("Saved date: \(UserDefaults.standard.object(forKey: "saveTime") as! Date)")
                     print("Current date: \(Date.now)")
-                    if isActive {
-                        if let saveDate = UserDefaults.standard.object(forKey: "saveTime") as? Date {
-                            // Calculate time in background
-                            countDiff = getTimeDifference(startDate: saveDate)
-                            let saveCount = UserDefaults.standard.integer(forKey: "saveCount")
-                            print("You were gone for \(countDiff) seconds, adding to counter")
-                            if isActive {
-                                counter = saveCount + countDiff
-                                
+                    //                    if inSession {
+                    if let saveDate = UserDefaults.standard.object(forKey: "saveTime") as? Date {
+                        // Calculate time in background
+                        countDiff = getTimeDifference(startDate: saveDate)
+                        let saveCount = UserDefaults.standard.integer(forKey: "saveCount")
+                        print("You were gone for \(countDiff) seconds, adding to counter")
+                        if isActive {
+                            print("Active!")
+                            time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+                            counter = saveCount + countDiff
+                        }
+                        // Timer is finished
+                        if countDiff >= countTo || counter >= countTo {
+                            print("Hello")
+                            removeSavedDate()
+                            counter = 0
+                            countDiff = 0
+                            isActive = false
+                            
+                            if mode == .study {
+                                studyCount += 1
+                                mode = switchModes(mode: mode, studyCount: studyCount)
                             }
-                            // Timer is finished
-                            if countDiff >= countTo || counter >= countTo {
-                                removeSavedDate()
-                                counter = 0
-                                countDiff = 0
-                                isActive = false
-                                
-                                if mode == .study {
-                                    studyCount += 1
-                                    mode = switchModes(mode: mode, studyCount: studyCount)
-                                }
-                                else if mode == .longStudyBreak {
-                                    mode = switchModes(mode: mode, studyCount: studyCount)
-                                    studyCount = 0
-                                } else {
-                                    mode = switchModes(mode: mode, studyCount: studyCount)
-                                }
-                                
-                                clearNotifications()
-                                setupLocalNotificationsFor()
+                            else if mode == .longStudyBreak {
+                                mode = switchModes(mode: mode, studyCount: studyCount)
+                                studyCount = 0
                             } else {
-                                LOG("Timer is not finished!")
-                                removeSavedDate()
-                                time.upstream.connect().cancel()
+                                mode = switchModes(mode: mode, studyCount: studyCount)
                             }
+                            
+                            clearNotifications()
+                            setupLocalNotificationsFor()
+                        } else {
+                            LOG("Timer is not finished!")
+                            removeSavedDate()
+                            time.upstream.connect().cancel()
                         }
                     }
+                    //                    }
+                    
                 }
             }
             // Settings button
@@ -320,7 +325,7 @@ struct MainView: View {
             }
         }
         .navigationViewStyle(.stack)
-
+        
     }
     func refresh(seconds: Int) {
         counter += seconds
