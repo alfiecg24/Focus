@@ -270,39 +270,41 @@ struct MainView: View {
                     print("App returning to the foreground")
                     print("Saved date: \(UserDefaults.standard.object(forKey: "saveTime") as! Date)")
                     print("Current date: \(Date.now)")
-                    if let saveDate = UserDefaults.standard.object(forKey: "saveTime") as? Date {
-                        // Calculate time in background
-                        countDiff = getTimeDifference(startDate: saveDate)
-                        let saveCount = UserDefaults.standard.integer(forKey: "saveCount")
-                        print("You were gone for \(countDiff) seconds, adding to counter")
-                        if isActive {
-                            counter = saveCount + countDiff
-                            
-                        }
-                        // Timer is finished
-                        if countDiff >= countTo || counter >= countTo {
-                            removeSavedDate()
-                            counter = 0
-                            countDiff = 0
-                            isActive = false
-                            
-                            if mode == .study {
-                                studyCount += 1
-                                mode = switchModes(mode: mode, studyCount: studyCount)
+                    if isActive {
+                        if let saveDate = UserDefaults.standard.object(forKey: "saveTime") as? Date {
+                            // Calculate time in background
+                            countDiff = getTimeDifference(startDate: saveDate)
+                            let saveCount = UserDefaults.standard.integer(forKey: "saveCount")
+                            print("You were gone for \(countDiff) seconds, adding to counter")
+                            if isActive {
+                                counter = saveCount + countDiff
+                                
                             }
-                            else if mode == .longStudyBreak {
-                                mode = switchModes(mode: mode, studyCount: studyCount)
-                                studyCount = 0
+                            // Timer is finished
+                            if countDiff >= countTo || counter >= countTo {
+                                removeSavedDate()
+                                counter = 0
+                                countDiff = 0
+                                isActive = false
+                                
+                                if mode == .study {
+                                    studyCount += 1
+                                    mode = switchModes(mode: mode, studyCount: studyCount)
+                                }
+                                else if mode == .longStudyBreak {
+                                    mode = switchModes(mode: mode, studyCount: studyCount)
+                                    studyCount = 0
+                                } else {
+                                    mode = switchModes(mode: mode, studyCount: studyCount)
+                                }
+                                
+                                clearNotifications()
+                                setupLocalNotificationsFor()
                             } else {
-                                mode = switchModes(mode: mode, studyCount: studyCount)
+                                LOG("Timer is not finished!")
+                                removeSavedDate()
+                                time.upstream.connect().cancel()
                             }
-                            
-                            clearNotifications()
-                            setupLocalNotificationsFor()
-                        } else {
-                            LOG("Timer is not finished!")
-                            removeSavedDate()
-                            time.upstream.connect().cancel()
                         }
                     }
                 }
