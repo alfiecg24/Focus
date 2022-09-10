@@ -86,46 +86,90 @@ struct MainView: View {
                             .padding(.vertical, 15)
                         Clock(counter: counter, countTo: countTo, textColor: textColor)
                     }
-                    // Play/pause button
-                    Button(action: {
-                        withAnimation {
-                            // Checks if ready to start next timer period
-                            if counter == countTo {
-                                time.upstream.connect().cancel()
-                            }
-                            if counter != countTo {
-                                if !inSession {
-                                    inSession.toggle()
+                    if UIDevice.isPad {
+                        // Play/pause button
+                        Button(action: {
+                            withAnimation {
+                                // Checks if ready to start next timer period
+                                if counter == countTo {
+                                    time.upstream.connect().cancel()
                                 }
-                                
+                                if counter != countTo {
+                                    if !inSession {
+                                        inSession.toggle()
+                                    }
+                                    
+                                }
+                                isActive.toggle()
+                                // Resets existing notifications and reschedules
+                                clearNotifications()
+                                if isActive {
+                                    setupLocalNotificationsFor()
+                                }
                             }
-                            isActive.toggle()
-                            // Resets existing notifications and reschedules
-                            clearNotifications()
-                            if isActive {
-                                setupLocalNotificationsFor()
+                            let generator = UIImpactFeedbackGenerator(style: .medium)
+                            generator.impactOccurred(intensity: 1.0)
+                        }, label: {
+                            ZStack {
+                                RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                                    .opacity(0.3)
+                                    .foregroundColor(Color.secondary)
+                                    .frame(width: 300, height: 75)
+                                if #available(iOS 16.0, *) {
+                                    Label(isActive ? "Pause": "Start", systemImage: isActive ? "pause" : "play")
+                                        .foregroundColor(textColor)
+                                        .font(.custom("Avenir Next", size: 30))
+                                        .fontWeight(.semibold)
+                                } else {
+                                    Label(isActive ? "Pause": "Start", systemImage: isActive ? "pause" : "play")
+                                        .foregroundColor(textColor)
+                                        .font(.custom("Avenir Next", size: 30))
+                                }
                             }
-                        }
-                        let generator = UIImpactFeedbackGenerator(style: .medium)
-                        generator.impactOccurred(intensity: 1.0)
-                    }, label: {
-                        ZStack {
-                            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                                .opacity(0.3)
-                                .foregroundColor(Color.secondary)
-                                .frame(width: 300, height: 75)
-                            if #available(iOS 16.0, *) {
-                                Label(isActive ? "Pause": "Start", systemImage: isActive ? "pause" : "play")
-                                    .foregroundColor(textColor)
-                                    .font(.custom("Avenir Next", size: 30))
-                                    .fontWeight(.semibold)
-                            } else {
-                                Label(isActive ? "Pause": "Start", systemImage: isActive ? "pause" : "play")
-                                    .foregroundColor(textColor)
-                                    .font(.custom("Avenir Next", size: 30))
+                        })
+                        .padding(.bottom, 50)
+                    } else {
+                        // Play/pause button
+                        Button(action: {
+                            withAnimation {
+                                // Checks if ready to start next timer period
+                                if counter == countTo {
+                                    time.upstream.connect().cancel()
+                                }
+                                if counter != countTo {
+                                    if !inSession {
+                                        inSession.toggle()
+                                    }
+                                    
+                                }
+                                isActive.toggle()
+                                // Resets existing notifications and reschedules
+                                clearNotifications()
+                                if isActive {
+                                    setupLocalNotificationsFor()
+                                }
                             }
-                        }
-                    })
+                            let generator = UIImpactFeedbackGenerator(style: .medium)
+                            generator.impactOccurred(intensity: 1.0)
+                        }, label: {
+                            ZStack {
+                                RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                                    .opacity(0.3)
+                                    .foregroundColor(Color.secondary)
+                                    .frame(width: 300, height: 75)
+                                if #available(iOS 16.0, *) {
+                                    Label(isActive ? "Pause": "Start", systemImage: isActive ? "pause" : "play")
+                                        .foregroundColor(textColor)
+                                        .font(.custom("Avenir Next", size: 30))
+                                        .fontWeight(.semibold)
+                                } else {
+                                    Label(isActive ? "Pause": "Start", systemImage: isActive ? "pause" : "play")
+                                        .foregroundColor(textColor)
+                                        .font(.custom("Avenir Next", size: 30))
+                                }
+                            }
+                        })
+                    }
                     if (!isActive && inSession && counter != countTo) {
                         VStack {
                             // Skip segment button
