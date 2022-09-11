@@ -14,6 +14,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         print("Launch!")
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         var log = [String]()
         log.append("Launch: \(Date.now.formatted(date: .omitted, time: .standard))")
         UserDefaults.standard.set(log, forKey: "log")
