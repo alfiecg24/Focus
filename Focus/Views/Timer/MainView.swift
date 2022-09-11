@@ -324,7 +324,6 @@ struct MainView: View {
                         print("You were gone for \(countDiff) seconds, adding to counter")
                         if isActive {
                             print("Active!")
-                            time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                             counter = saveCount + countDiff
                         }
                         // Timer is finished
@@ -353,6 +352,7 @@ struct MainView: View {
                             removeSavedDate()
                             time.upstream.connect().cancel()
                         }
+                        time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                     }
                     //                    }
                     
