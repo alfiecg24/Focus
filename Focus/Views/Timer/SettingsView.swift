@@ -17,6 +17,7 @@ struct SettingsView: View {
     @State private var color1: Color = UserDefaults.standard.color(forKey: "color1")
     @State private var background: Color = UserDefaults.standard.color(forKey: "background")
     @State private var textColor: Color = UserDefaults.standard.color(forKey: "textColor")
+    @State private var workSegmentName: String = UserDefaults.standard.string(forKey: "workSegmentName")!
     
     // Passed to view from MainView
     let inSession: Bool
@@ -29,6 +30,16 @@ struct SettingsView: View {
     var body: some View {
         ZStack {
             Form {
+                Section(content: {
+                    TextField("Work segment name", text: $workSegmentName)
+                        .onChange(of: workSegmentName) { _ in
+                            UserDefaults.standard.set(workSegmentName, forKey: "workSegmentName")
+                        }
+                }, header: {
+                    Text("Segment names")
+                }, footer: {
+                    Text("The name of the work segment.")
+                })
                 Section(content: {
                     /*
                      
@@ -44,6 +55,7 @@ struct SettingsView: View {
                      }
                      
                      */
+                    
                     Picker("Study time", selection: $studyTime) {
                         
                         ForEach(studyTimeOptions, id: \.self) {
@@ -132,11 +144,13 @@ struct SettingsView: View {
             UserDefaults.standard.set(studyTime * 60, forKey: "studyTime")
             UserDefaults.standard.set(breakTime * 60, forKey: "breakTime")
             UserDefaults.standard.set(sessionsUntilLongBreak, forKey: "sessionsUntilLongBreak")
+            UserDefaults.standard.set(workSegmentName, forKey: "workSegmentName")
         }
         .onAppear {
             studyTime = UserDefaults.standard.integer(forKey: "studyTime") / 60
             breakTime = UserDefaults.standard.integer(forKey: "breakTime") / 60
             sessionsUntilLongBreak = UserDefaults.standard.integer(forKey: "sessionsUntilLongBreak")
+            workSegmentName = UserDefaults.standard.string(forKey: "workSegmentName")!
         }
     }
 }

@@ -36,6 +36,7 @@ struct MainView: View {
     @State private var background: Color = UserDefaults.standard.color(forKey: "background")
     @State private var textColor: Color = UserDefaults.standard.color(forKey: "textColor")
     @State private var sessionsUntilLongBreak = UserDefaults.standard.integer(forKey: "sessionsUntilLongBreak")
+    @State private var workSegmentName: String = UserDefaults.standard.string(forKey: "workSegmentName")!
     
     // Computed variables - dependent on the State variables
     var countTo: Int {
@@ -52,7 +53,7 @@ struct MainView: View {
     var modeName: String {
         switch mode {
         case .study:
-            return "Study"
+            return UserDefaults.standard.string(forKey: "workSegmentName")!
         case .studyBreak:
             return "Break"
         case .longStudyBreak:
@@ -252,6 +253,7 @@ struct MainView: View {
                     background = UserDefaults.standard.color(forKey: "background")
                     textColor = UserDefaults.standard.color(forKey: "textColor")
                     sessionsUntilLongBreak = UserDefaults.standard.integer(forKey: "sessionsUntilLongBreak")
+                    workSegmentName = UserDefaults.standard.string(forKey: "workSegmentName")!
                 }
                 // Timer mechanism
                 .onReceive(time) { time in
@@ -313,6 +315,7 @@ struct MainView: View {
                 // App returns to foreground
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                     inBackground = false
+                    UNUserNotificationCenter.current().removeAllDeliveredNotifications()
                     print("App returning to the foreground")
                     print("Saved date: \(UserDefaults.standard.object(forKey: "saveTime") as! Date)")
                     print("Current date: \(Date.now)")

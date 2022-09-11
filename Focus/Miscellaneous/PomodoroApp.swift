@@ -18,6 +18,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         var log = [String]()
         log.append("Launch: \(Date.now.formatted(date: .omitted, time: .standard))")
         UserDefaults.standard.set(log, forKey: "log")
+        let intOptions = ["studyTime", "breakTime", "longBreakTime", "sessionsUntilLongBreak"]
         // Check if user has launched before
         if !UserDefaults.standard.bool(forKey: "hasLaunchedBefore") {
             // Length of study period 1500
@@ -43,6 +44,35 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 log.append("Could not save subjects/goals to defaults: \(Date.now.formatted(date: .omitted, time: .standard))")
                 UserDefaults.standard.set(log, forKey: "log")
             }
+            UserDefaults.standard.set("Study", forKey: "workSegmentName")
+        }
+        
+        for opt in intOptions {
+            if !UserDefaults.exists(key: opt) {
+                switch opt {
+                case "studyTime": UserDefaults.standard.set(1500, forKey: opt)
+                case "breakTime": UserDefaults.standard.set(300, forKey: opt)
+                case "longBreakTime": UserDefaults.standard.set(1800, forKey: opt)
+                case "sessionsUntilLongBreak": UserDefaults.standard.set(5, forKey: opt)
+                default: break
+                }
+            }
+        }
+        
+        if !UserDefaults.exists(key: "color1") {
+            UserDefaults.standard.setColor(.green, forKey: "color1")
+        }
+        
+        if !UserDefaults.exists(key: "background") {
+            UserDefaults.standard.setColor(Color("Background"), forKey: "background")
+        }
+        
+        if !UserDefaults.exists(key: "textColor") {
+            UserDefaults.standard.setColor(.white, forKey: "textColor")
+        }
+        
+        if !UserDefaults.exists(key: "workSegmentName") {
+            UserDefaults.standard.set("Study", forKey: "workSegmentName")
         }
         
         ATTrackingManager.requestTrackingAuthorization { status in
@@ -107,4 +137,12 @@ struct PomodoroApp: App {
             }
         }
     }
+}
+
+extension UserDefaults {
+
+    static func exists(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
+
 }
