@@ -22,7 +22,13 @@ struct GADBannerViewController: UIViewControllerRepresentable {
     
     // View Controller
     viewController.view.addSubview(view)
-    viewController.view.frame = CGRect(origin: .zero, size: GADAdSizeBanner.size)
+    //viewController.view.frame = CGRect(origin: .zero, size: GADAdSizeBanner.size)
+    viewController.view.frame = CGRect(x: 0.0,
+                                    y: UIScreen.main.bounds.height - 50 ,
+                                    width: view.frame.width,
+                                    height: view.frame.height)
+      
+    //view.center = CGPoint(x: view.frame.midX, y: view.bounds.height - view.bounds.height / 2)
     
     // Load an ad
     view.load(GADRequest())

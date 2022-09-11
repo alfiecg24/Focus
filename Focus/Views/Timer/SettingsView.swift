@@ -27,96 +27,105 @@ struct SettingsView: View {
     let longBreakTimeOptions = [15, 20, 25, 30, 35, 40, 45]
     
     var body: some View {
-        Form {
-            Section(content: {
-                /*
-                 
-                 Picker("Setting", selection: $settingBeingEdited) {
-                     // Shows all possible options for user to choose from
-                     ForEach(settingOptions, id: \.self) {
-                         Text("\($0)")
+        ZStack {
+            Form {
+                Section(content: {
+                    /*
+                     
+                     Picker("Setting", selection: $settingBeingEdited) {
+                         // Shows all possible options for user to choose from
+                         ForEach(settingOptions, id: \.self) {
+                             Text("\($0)")
+                         }
                      }
-                 }
-                 // Save any changed to UserDefaults immediately
-                 .onChange(of: settingBeingEdited) { _ in
-                     UserDefaults.standard.set(settingBeingEdited, forKey: "settingBeingEdited")
-                 }
-                 
-                 */
-                Picker("Study time", selection: $studyTime) {
-                    
-                    ForEach(studyTimeOptions, id: \.self) {
-                        Text("\($0) minutes")
+                     // Save any changed to UserDefaults immediately
+                     .onChange(of: settingBeingEdited) { _ in
+                         UserDefaults.standard.set(settingBeingEdited, forKey: "settingBeingEdited")
+                     }
+                     
+                     */
+                    Picker("Study time", selection: $studyTime) {
+                        
+                        ForEach(studyTimeOptions, id: \.self) {
+                            Text("\($0) minutes")
+                        }
                     }
-                }
-                .onChange(of: studyTime) { _ in
-                    UserDefaults.standard.set(studyTime * 60, forKey: "studyTime")
+                    .onChange(of: studyTime) { _ in
+                        UserDefaults.standard.set(studyTime * 60, forKey: "studyTime")
 
-                }
-                Picker("Break time", selection: $breakTime) {
-                    ForEach(breakTimeOptions, id: \.self) {
-                        Text("\($0) minutes")
                     }
-                }
-                .onChange(of: breakTime) { _ in
-                    UserDefaults.standard.set(breakTime * 60, forKey: "breakTime")
-                }
-                
-                Picker("Long break time", selection: $longBreakTime) {
-                    ForEach(longBreakTimeOptions, id: \.self) {
-                        Text("\($0) minutes")
+                    Picker("Break time", selection: $breakTime) {
+                        ForEach(breakTimeOptions, id: \.self) {
+                            Text("\($0) minutes")
+                        }
                     }
-                }
-                .onChange(of: longBreakTime) { _ in
-                    UserDefaults.standard.set(longBreakTime * 60, forKey: "longBreakTime")
-                }
-                
-                Stepper(value: $sessionsUntilLongBreak, label: {
-                    Text("Sessions: \(sessionsUntilLongBreak)")
+                    .onChange(of: breakTime) { _ in
+                        UserDefaults.standard.set(breakTime * 60, forKey: "breakTime")
+                    }
+                    
+                    Picker("Long break time", selection: $longBreakTime) {
+                        ForEach(longBreakTimeOptions, id: \.self) {
+                            Text("\($0) minutes")
+                        }
+                    }
+                    .onChange(of: longBreakTime) { _ in
+                        UserDefaults.standard.set(longBreakTime * 60, forKey: "longBreakTime")
+                    }
+                    
+                    Stepper(value: $sessionsUntilLongBreak, label: {
+                        Text("Sessions: \(sessionsUntilLongBreak)")
+                    })
+                    .onChange(of: sessionsUntilLongBreak) { _ in
+                        UserDefaults.standard.set(sessionsUntilLongBreak, forKey: "sessionsUntilLongBreak")
+                    }
+                    
+                    
+                }, header: {
+                    Text("Timings")
+                }, footer: {
+                    // Explanation for final setting
+                    Text("This is the number of study sessions before you start your long break.")
                 })
-                .onChange(of: sessionsUntilLongBreak) { _ in
-                    UserDefaults.standard.set(sessionsUntilLongBreak, forKey: "sessionsUntilLongBreak")
-                }
+                .disabled(inSession)
                 
+                Section(content: {
+                    
+                    /*
+                                // Localised for 'color'/'colour'
+                     ColorPicker(LocalizedStringKey("Text color"), selection: $textColor, supportsOpacity: true)
+                        // Updates value when changed
+                         .onChange(of: textColor) { _ in
+                             UserDefaults.standard.setColor(textColor, forKey: "textColor")
+                         }
+                     
+                     */
+                    
+                    ColorPicker("Ring", selection: $color1, supportsOpacity: true)
+                        .onChange(of: color1) { _ in
+                            UserDefaults.standard.setColor(color1, forKey: "color1")
+                        }
+                    ColorPicker("Background", selection: $background, supportsOpacity: true)
+                        .onChange(of: background) { _ in
+                            UserDefaults.standard.setColor(background, forKey: "background")
+                        }
+                    ColorPicker(LocalizedStringKey("Text color"), selection: $textColor, supportsOpacity: true)
+                        .onChange(of: textColor) { _ in
+                            UserDefaults.standard.setColor(textColor, forKey: "textColor")
+                        }
+                }, header: {
+                    Text(LocalizedStringKey("colors"))
+                }, footer: {
+                    Text(inSession ? "Sorry, settings can't be edited during a pomodoro session. Please end your session and try again." : "")
+                })
+                .disabled(inSession)
+            }
+            VStack(alignment: .center) {
+                Spacer()
+                GADBannerViewController()
+//                    .border(.green)
+                    .frame(height: 75)
                 
-            }, header: {
-                Text("Timings")
-            }, footer: {
-                // Explanation for final setting
-                Text("This is the number of study sessions before you start your long break.")
-            })
-            .disabled(inSession)
-            
-            Section(content: {
-                
-                /*
-                            // Localised for 'color'/'colour'
-                 ColorPicker(LocalizedStringKey("Text color"), selection: $textColor, supportsOpacity: true)
-                    // Updates value when changed
-                     .onChange(of: textColor) { _ in
-                         UserDefaults.standard.setColor(textColor, forKey: "textColor")
-                     }
-                 
-                 */
-                
-                ColorPicker("Ring", selection: $color1, supportsOpacity: true)
-                    .onChange(of: color1) { _ in
-                        UserDefaults.standard.setColor(color1, forKey: "color1")
-                    }
-                ColorPicker("Background", selection: $background, supportsOpacity: true)
-                    .onChange(of: background) { _ in
-                        UserDefaults.standard.setColor(background, forKey: "background")
-                    }
-                ColorPicker(LocalizedStringKey("Text color"), selection: $textColor, supportsOpacity: true)
-                    .onChange(of: textColor) { _ in
-                        UserDefaults.standard.setColor(textColor, forKey: "textColor")
-                    }
-            }, header: {
-                Text(LocalizedStringKey("colors"))
-            }, footer: {
-                Text(inSession ? "Sorry, settings can't be edited during a pomodoro session. Please end your session and try again." : "")
-            })
-            .disabled(inSession)
+            }
         }
         // Just to be sure ;)
         .onDisappear {
