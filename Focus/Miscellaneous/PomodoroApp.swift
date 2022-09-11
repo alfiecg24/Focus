@@ -8,6 +8,7 @@
 import SwiftUI
 import FirebaseCore
 import GoogleMobileAds
+import AppTrackingTransparency
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
@@ -40,6 +41,21 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 print("Could not save subjects/goals to defaults")
                 log.append("Could not save subjects/goals to defaults: \(Date.now.formatted(date: .omitted, time: .standard))")
                 UserDefaults.standard.set(log, forKey: "log")
+            }
+        }
+        
+        ATTrackingManager.requestTrackingAuthorization { status in
+            switch status {
+            case .authorized:
+                print("Tracking authorised!")
+            case .notDetermined:
+                print("Tracking authorisation not determined")
+            case .restricted:
+                print("Tracking restricted")
+            case .denied:
+                print("Tracking denied")
+            @unknown default:
+                print("Unknown tracking authorisation status!")
             }
         }
         
