@@ -131,13 +131,13 @@ struct SettingsView: View {
                 })
                 .disabled(inSession)
             }
-            VStack(alignment: .center) {
-                Spacer()
-                GADBannerViewController()
-//                    .border(.green)
-                    .frame(height: 75)
-                
-            }
+//            VStack(alignment: .center) {
+//                Spacer()
+//                GADBannerViewController()
+////                    .border(.green)
+//                    .frame(height: 75)
+//                
+//            }
         }
         // Just to be sure ;)
         .onDisappear {

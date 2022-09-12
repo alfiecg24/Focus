@@ -35,5 +35,5 @@ extension Text {
 }
 
 extension Color {
-    static var mainColor = Color(UIColor.systemIndigo)
+    static var mainColor = Color("Background")
 }

@@ -97,7 +97,8 @@ struct PlannerView: View {
                         }
                     } else {
                         Text("No goals to display!")
-                            .font(.custom("Avenir Next", size: 45))
+                            .font(.custom("Avenir Next", size: 40))
+                            .foregroundColor(.white)
                     }
                     HStack {
                         Button("Add subject") {
