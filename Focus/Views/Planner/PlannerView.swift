@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import AlertToast
+
+
 
 struct PlannerView: View {
     
@@ -15,68 +18,108 @@ struct PlannerView: View {
     @State private var textColor: Color = UserDefaults.standard.color(forKey: "textColor")
     
     @State private var log = UserDefaults.standard.array(forKey: "log") as! [String]
-    @State private var allGoals = try! UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self)
+    @State var allGoals = [Goal]()
     @State private var current = Date.now.formatted(date: .omitted, time: .standard)
     
     @State private var addingGoal = false
     @State private var addingSubject = false
-    @State private var goingTo = "goal" {
-        didSet {
-            if goingTo == "goal" {
-                addingGoal.toggle()
-            } else {
-                addingSubject.toggle()
-            }
-        }
-    }
+    
+    @State private var cachedGoal: Goal? = nil
+    @State private var hasJustDeleted = false
+    @State private var isShowingToast = false
     
     var body: some View {
         NavigationView {
             ZStack {
-                Color(uiColor: UIColor(background)).opacity(0.3)
+                Color(uiColor: UIColor(background))
                     .ignoresSafeArea()
                 VStack {
-//                    ScrollView {
-//                        VStack(alignment: .leading, spacing: 1) {
-//                            ForEach(log, id: \.self) { line in
-//                                HStack {
-//                                    Text(line)
-//                                        .font(.monospaced(.body)())
-//                                    Spacer()
-//                                }
-//                            }
-//                        }
-//                        .padding()
-//                    }
-//                    HStack {
-//                        Text(current)
-//                        Spacer()
-//                        Button("Clear log") {
-//                            UserDefaults.standard.set(["Log start"], forKey: "log")
-//                            log = UserDefaults.standard.array(forKey: "log") as! [String]
-//                        }
-//                    }
-//                    .padding()
-                    ScrollView {
-                        ForEach(allGoals, id: \.self) { goal in
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .foregroundColor(Color(uiColor: UIColor(background)))
-                                HStack {
-                                    Circle()
-                                        .frame(width: 22, height: 22)
-                                        .foregroundColor(Color(red: goal.subject.red, green: goal.subject.green, blue: goal.subject.blue))
-                                        .padding()
-                                    Text(goal.name)
-                                    
+                    //                    ScrollView {
+                    //                        VStack(alignment: .leading, spacing: 1) {
+                    //                            ForEach(log, id: \.self) { line in
+                    //                                HStack {
+                    //                                    Text(line)
+                    //                                        .font(.monospaced(.body)())
+                    //                                    Spacer()
+                    //                                }
+                    //                            }
+                    //                        }
+                    //                        .padding()
+                    //                    }
+                    //                    HStack {
+                    //                        Text(current)
+                    //                        Spacer()
+                    //                        Button("Clear log") {
+                    //                            UserDefaults.standard.set(["Log start"], forKey: "log")
+                    //                            log = UserDefaults.standard.array(forKey: "log") as! [String]
+                    //                        }
+                    //                    }
+                    //                    .padding()
+                    if allGoals.count >= 1 {
+                        ScrollView {
+                            ForEach(allGoals, id: \.self) { goal in
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10)
+    //                                    .foregroundColor(Color(uiColor: UIColor(color1)))
+                                        .opacity(0.3)
+                                        .foregroundColor(Color.secondary)
+                                    HStack {
+                                        Circle()
+                                            .frame(width: 33, height: 33)
+                                            .foregroundColor(Color(red: goal.subject.red, green: goal.subject.green, blue: goal.subject.blue))
+                                            .padding()
+                                        VStack(alignment: .leading) {
+                                            Text(goal.name)
+                                                .font(.custom("Avenir Next", size: 18))
+                                            Text(goal.deadline.formatted(date: .numeric, time: .shortened))
+                                                .font(.custom("Avenir Next", size: 14))
+                                            
+                                        }
+                                        .foregroundColor(textColor)
+                                        .padding(.leading)
+                                        Spacer()
+                                    }
+                                    .padding()
                                 }
+                                .padding()
+                                .onLongPressGesture(minimumDuration: 0.5, perform: {
+                                    let generator = UINotificationFeedbackGenerator()
+                                    generator.notificationOccurred(.success)
+                                    cachedGoal = goal
+                                    removeGoal(allGoals.firstIndex(where: {$0.name == goal.name && $0.deadline == goal.deadline})!)
+                                    hasJustDeleted = true
+                                    isShowingToast.toggle()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                                        hasJustDeleted = false
+                                    }
+                                })
                             }
-                            .padding()
                         }
+                    } else {
+                        Text("No goals to display!")
+                            .font(.custom("Avenir Next", size: 45))
                     }
+                    HStack {
+                        Button("Add subject") {
+                            addingSubject.toggle()
+                        }
+                        .foregroundColor(textColor)
+                        .buttonStyle(.bordered)
+                        .frame(width: 150)
+                        Button("Add goal") {
+                            addingGoal.toggle()
+                        }
+                        .foregroundColor(textColor)
+                        .buttonStyle(.bordered)
+                        .frame(width: 150)
+                    }
+                    .padding()
+                }
+                .toast(isPresenting: $isShowingToast){
+                    AlertToast(displayMode: .hud, type: .complete(.green), title: "Goal complete!")
                 }
                 .sheet(isPresented: $addingGoal, content: {
-                    NewGoalView()
+                    NewGoalView(allGoals: $allGoals)
                 })
                 .sheet(isPresented: $addingSubject, content: {
                     NewSubjectView()
@@ -92,28 +135,65 @@ struct PlannerView: View {
                     textColor = UserDefaults.standard.color(forKey: "textColor")
                 }
             }
+            .onAppear {
+                do {
+                    allGoals = try UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self).sorted(by: {$0.deadline < $1.deadline})
+                    for goal in allGoals {
+                        if goal.deadline < Date.now {
+                            let centre = UNUserNotificationCenter.current()
+                            centre.removePendingNotificationRequests(withIdentifiers: [goal.id])
+                            var goals = try! UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self).sorted(by: {$0.deadline < $1.deadline})
+                            goals.remove(at: allGoals.firstIndex(where: {$0.name == goal.name && $0.deadline == goal.deadline})!)
+                            
+                            do {
+                                try UserDefaults.standard.setObject(goals, forKey: "goals")
+                            } catch {
+                                print("No goals")
+                            }
+                            
+                            withAnimation {
+                                allGoals = try! UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self).sorted(by: {$0.deadline < $1.deadline})
+                            }
+                            
+                        }
+                    }
+                } catch {
+                    print("No goals!")
+                }
+                
+            }
             .toolbar {
-//                Button(action: {
-//                    print("New subject")
-//                    addingGoal.toggle()
-//                }, label: {
-//                    Label("Add subject", systemImage: "plus.circle")
-//                        .foregroundColor(textColor)
-//                })
-//                .sheet(isPresented: $addingGoal, content: {
-//                    NewGoalView()
-//                })
-//
-                NavigationLink(destination: {
-                    NewGoalView()
-                }, label: {
-                    Label("Add subject", systemImage: "plus.circle")
-                        .foregroundColor(textColor)
+                ToolbarItem(placement: .navigationBarTrailing, content: {
+                    Button(action: {
+                        undoRemove()
+                        hasJustDeleted = false
+                        let generator = UINotificationFeedbackGenerator()
+                        generator.notificationOccurred(.warning)
+                    }, label: {
+                        Image(systemName: hasJustDeleted ? "arrow.uturn.backward.circle" : "")
+                            .foregroundColor(textColor)
+                    })
+                    .disabled(!hasJustDeleted)
                 })
-//                Picker("New", selection: $goingTo) {
-//                    Text("New subject").tag("subject")
-//                    Text("New goal").tag("goal")
-//                }
+            }
+        }
+    }
+    func removeGoal(_ index: Int) {
+        var goals = try! UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self).sorted(by: {$0.deadline < $1.deadline})
+        goals.remove(at: index)
+        try! UserDefaults.standard.setObject(goals, forKey: "goals")
+        withAnimation {
+            allGoals = try! UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self).sorted(by: {$0.deadline < $1.deadline})
+        }
+    }
+
+    func undoRemove() {
+        var goals = try! UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self).sorted(by: {$0.deadline < $1.deadline})
+        if cachedGoal != nil {
+            goals.append(cachedGoal!)
+            try! UserDefaults.standard.setObject(goals, forKey: "goals")
+            withAnimation {
+                allGoals = try! UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self).sorted(by: {$0.deadline < $1.deadline})
             }
         }
     }

@@ -14,7 +14,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         print("Launch!")
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["SegmentCompletionNotification"])
         var log = [String]()
         log.append("Launch: \(Date.now.formatted(date: .omitted, time: .standard))")
         UserDefaults.standard.set(log, forKey: "log")
@@ -75,6 +75,18 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             UserDefaults.standard.set("Study", forKey: "workSegmentName")
         }
         
+        if !UserDefaults.exists(key: "subjects") {
+            let newSubject = Subject(name: "Maths", red: 0, green: 0, blue: 1)
+            do {
+                try UserDefaults.standard.setObject([newSubject], forKey: "subjects")
+                try UserDefaults.standard.setObject([Goal](), forKey: "goals")
+            } catch {
+                print("Could not save subjects/goals to defaults")
+                log.append("Could not save subjects/goals to defaults: \(Date.now.formatted(date: .omitted, time: .standard))")
+                UserDefaults.standard.set(log, forKey: "log")
+            }
+        }
+        
         ATTrackingManager.requestTrackingAuthorization { status in
             switch status {
             case .authorized:
@@ -131,7 +143,16 @@ struct PomodoroApp: App {
 //                    })
 //            }
             if previousLaunch {
-                MainView()
+                TabView {
+                    MainView()
+                        .tabItem({
+                            Label("Timer", systemImage: "deskclock")
+                        })
+                    PlannerView()
+                        .tabItem({
+                            Label("Planner", systemImage: "calendar.day.timeline.left")
+                        })
+                }
             } else {
                 SplashScreenView()
             }

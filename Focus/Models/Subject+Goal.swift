@@ -20,4 +20,5 @@ struct Goal: Codable, Hashable {
     var name: String
     var subject: Subject
     var deadline: Date
+    var id: String
 }

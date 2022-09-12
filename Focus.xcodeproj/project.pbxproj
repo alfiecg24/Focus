@@ -13,6 +13,7 @@
 		3130E46728AC11B1009D6C5D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3130E46628AC11B1009D6C5D /* Helpers.swift */; };
 		3130E46928AC121C009D6C5D /* NotificationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3130E46828AC121C009D6C5D /* NotificationPublisher.swift */; };
 		3130E47028AC362F009D6C5D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3130E46F28AC362F009D6C5D /* GoogleService-Info.plist */; };
+		314546A228CFC22000FD613A /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 314546A128CFC22000FD613A /* AlertToast */; };
 		315B242528C936BE00F1C6F9 /* NewGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315B242428C936BE00F1C6F9 /* NewGoalView.swift */; };
 		315B242728C936C600F1C6F9 /* NewSubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315B242628C936C600F1C6F9 /* NewSubjectView.swift */; };
 		315B242A28C93A0B00F1C6F9 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315B242928C93A0B00F1C6F9 /* UserDefaults+Extension.swift */; };
@@ -37,12 +38,27 @@
 		31FF1A3F28A96CC90048DD49 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31FF1A3E28A96CC90048DD49 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3145468E28CFA4CF00FD613A /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		311FE7A328CC8F90003D7E3D /* SplashScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		311FE7A528CCB07A003D7E3D /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		3130E46628AC11B1009D6C5D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		3130E46828AC121C009D6C5D /* NotificationPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPublisher.swift; sourceTree = "<group>"; };
 		3130E46F28AC362F009D6C5D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3145467E28CFA4CE00FD613A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		3145468028CFA4CE00FD613A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		315B242428C936BE00F1C6F9 /* NewGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGoalView.swift; sourceTree = "<group>"; };
 		315B242628C936C600F1C6F9 /* NewSubjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSubjectView.swift; sourceTree = "<group>"; };
 		315B242928C93A0B00F1C6F9 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
@@ -76,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				314546A228CFC22000FD613A /* AlertToast in Frameworks */,
 				31648F6428A9758200501096 /* CircularProgress in Frameworks */,
 				1A54ED7E79A0A8AD6DD091DF /* Pods_Pomodoro.framework in Frameworks */,
 			);
@@ -221,6 +238,8 @@
 			isa = PBXGroup;
 			children = (
 				B66B2228D54522E2A48A9668 /* Pods_Pomodoro.framework */,
+				3145467E28CFA4CE00FD613A /* WidgetKit.framework */,
+				3145468028CFA4CE00FD613A /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -237,6 +256,7 @@
 				31FF1A3128A96CC80048DD49 /* Frameworks */,
 				31FF1A3228A96CC80048DD49 /* Resources */,
 				534F14EBE8686C9CC9033501 /* [CP] Embed Pods Frameworks */,
+				3145468E28CFA4CF00FD613A /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -245,6 +265,7 @@
 			name = Focus;
 			packageProductDependencies = (
 				31648F6328A9758200501096 /* CircularProgress */,
+				314546A128CFC22000FD613A /* AlertToast */,
 			);
 			productName = Pomodoro;
 			productReference = 31FF1A3428A96CC80048DD49 /* Focus.app */;
@@ -277,6 +298,7 @@
 			mainGroup = 31FF1A2B28A96CC80048DD49;
 			packageReferences = (
 				31648F6228A9758200501096 /* XCRemoteSwiftPackageReference "CircularProgressSwiftUI" */,
+				314546A028CFC22000FD613A /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 31FF1A3528A96CC80048DD49 /* Products */;
 			projectDirPath = "";
@@ -511,7 +533,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Focus/Focus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Focus/Miscellaneous/Preview Content\"";
 				DEVELOPMENT_TEAM = 76V43E9CWT;
 				ENABLE_PREVIEWS = YES;
@@ -531,7 +553,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7.0;
+				MARKETING_VERSION = 0.8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -555,7 +577,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Focus/Focus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Focus/Miscellaneous/Preview Content\"";
 				DEVELOPMENT_TEAM = 76V43E9CWT;
 				ENABLE_PREVIEWS = YES;
@@ -575,7 +597,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7.0;
+				MARKETING_VERSION = 0.8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Alfie.Pomodoro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -611,6 +633,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		314546A028CFC22000FD613A /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		31648F6228A9758200501096 /* XCRemoteSwiftPackageReference "CircularProgressSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ArnavMotwani/CircularProgressSwiftUI";
@@ -622,6 +652,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		314546A128CFC22000FD613A /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 314546A028CFC22000FD613A /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
 		31648F6328A9758200501096 /* CircularProgress */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 31648F6228A9758200501096 /* XCRemoteSwiftPackageReference "CircularProgressSwiftUI" */;

@@ -29,7 +29,7 @@ class NotificationPublisher: NSObject {
                 
         UNUserNotificationCenter.current().delegate = self
         
-        let request = UNNotificationRequest(identifier: "TestLocalNotification", content: notificationContent, trigger: delayTimeTrigger)
+        let request = UNNotificationRequest(identifier: "SegmentCompletionNotification", content: notificationContent, trigger: delayTimeTrigger)
         
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {

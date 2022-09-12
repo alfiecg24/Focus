@@ -413,7 +413,8 @@ struct MainView: View {
         print("Clearing notifications")
         LOG("Clearing notifications")
         // Clear all scheduled notifications
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        let centre = UNUserNotificationCenter.current()
+        centre.removePendingNotificationRequests(withIdentifiers: ["SegmentCompletionNotification"])
     }
 }
 
