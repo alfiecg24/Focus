@@ -14,7 +14,7 @@ struct InformationContainerView: View {
 
             InformationDetailView(title: "Effective technique", subTitle: "Focus uses the Pomodoro revision technique - a method that is proven to be highly effective.", imageName: "clock")
 
-            InformationDetailView(title: "Pomodoro", subTitle: "You do a study segment, then a short break, and you do that several times until you get a longer break.", imageName: "graduationcap")
+            InformationDetailView(title: "Pomodoro", subTitle: "You do a work segment, then a short break, and you do that several times until you get a longer break.", imageName: "graduationcap")
         }
         .padding(.horizontal)
     }

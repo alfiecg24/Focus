@@ -18,6 +18,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         var log = [String]()
         log.append("Launch: \(Date.now.formatted(date: .omitted, time: .standard))")
         UserDefaults.standard.set(log, forKey: "log")
+        // Main ring colour
+        UserDefaults.standard.setColor(.green, forKey: "color1")
+        // Background colour
+        UserDefaults.standard.setColor(Color("Background"), forKey: "background")
+        // Text colour
+        UserDefaults.standard.setColor(.white, forKey: "textColor")
         let intOptions = ["studyTime", "breakTime", "longBreakTime", "sessionsUntilLongBreak"]
         // Check if user has launched before
         if !UserDefaults.standard.bool(forKey: "hasLaunchedBefore") {
@@ -87,20 +93,20 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             }
         }
         
-        ATTrackingManager.requestTrackingAuthorization { status in
+        ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
             switch status {
-            case .authorized:
-                print("Tracking authorised!")
             case .notDetermined:
                 print("Tracking authorisation not determined")
             case .restricted:
                 print("Tracking restricted")
             case .denied:
                 print("Tracking denied")
+            case .authorized:
+                print("Tracking authorised!")
             @unknown default:
                 print("Unknown tracking authorisation status!")
             }
-        }
+        })
         
         // Initialise Firebase and Google Mobile Ads
         FirebaseApp.configure()
@@ -153,8 +159,40 @@ struct PomodoroApp: App {
                             Label("Planner", systemImage: "calendar.day.timeline.left")
                         })
                 }
+                .onAppear {
+                    ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                        switch status {
+                        case .notDetermined:
+                            print("Tracking authorisation not determined")
+                        case .restricted:
+                            print("Tracking restricted")
+                        case .denied:
+                            print("Tracking denied")
+                        case .authorized:
+                            print("Tracking authorised!")
+                        @unknown default:
+                            print("Unknown tracking authorisation status!")
+                        }
+                    })
+                }
             } else {
                 SplashScreenView()
+                    .onAppear {
+                        ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                            switch status {
+                            case .notDetermined:
+                                print("Tracking authorisation not determined")
+                            case .restricted:
+                                print("Tracking restricted")
+                            case .denied:
+                                print("Tracking denied")
+                            case .authorized:
+                                print("Tracking authorised!")
+                            @unknown default:
+                                print("Unknown tracking authorisation status!")
+                            }
+                        })
+                    }
             }
         }
     }

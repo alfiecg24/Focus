@@ -178,6 +178,7 @@ struct PlannerView: View {
                 })
             }
         }
+        .navigationViewStyle(.stack)
     }
     func removeGoal(_ index: Int) {
         var goals = try! UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self).sorted(by: {$0.deadline < $1.deadline})
