@@ -100,19 +100,24 @@ struct PlannerView: View {
                             .font(.custom("Avenir Next", size: 40))
                             .foregroundColor(.white)
                     }
-                    HStack {
-                        Button("Add subject") {
-                            addingSubject.toggle()
+                    VStack {
+                        HStack {
+                            Button("Add subject") {
+                                addingSubject.toggle()
+                            }
+                            .foregroundColor(textColor)
+                            .buttonStyle(.bordered)
+                            .frame(width: 150)
+                            Button("Add goal") {
+                                addingGoal.toggle()
+                            }
+                            .foregroundColor(textColor)
+                            .buttonStyle(.bordered)
+                            .frame(width: 150)
                         }
-                        .foregroundColor(textColor)
-                        .buttonStyle(.bordered)
-                        .frame(width: 150)
-                        Button("Add goal") {
-                            addingGoal.toggle()
-                        }
-                        .foregroundColor(textColor)
-                        .buttonStyle(.bordered)
-                        .frame(width: 150)
+                        Text("Press and hold on a goal to delete it")
+                            .font(.custom("Avenir Next", size: 17))
+                            .foregroundColor(.white)
                     }
                     .padding()
                 }
@@ -181,12 +186,15 @@ struct PlannerView: View {
         .navigationViewStyle(.stack)
     }
     func removeGoal(_ index: Int) {
+        let goal = allGoals[index]
         var goals = try! UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self).sorted(by: {$0.deadline < $1.deadline})
         goals.remove(at: index)
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [goal.id])
         try! UserDefaults.standard.setObject(goals, forKey: "goals")
         withAnimation {
             allGoals = try! UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self).sorted(by: {$0.deadline < $1.deadline})
         }
+        
     }
 
     func undoRemove() {
@@ -197,6 +205,18 @@ struct PlannerView: View {
             withAnimation {
                 allGoals = try! UserDefaults.standard.getObject(forKey: "goals", castTo: [Goal].self).sorted(by: {$0.deadline < $1.deadline})
             }
+            let goal = cachedGoal
+            let centre = UNUserNotificationCenter.current()
+            let notificationContent = UNMutableNotificationContent()
+            notificationContent.title = "Don't forget!"
+            notificationContent.subtitle = ""
+            notificationContent.body = "1 hour remaining until the deadline for \(goal!.name)"
+            notificationContent.interruptionLevel = .timeSensitive
+            let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: goal!.deadline)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            print("Identifier: \(goal!.id)")
+            let request = UNNotificationRequest(identifier: "\(goal!.id)", content: notificationContent, trigger: trigger)
+            centre.add(request)
         }
     }
 }

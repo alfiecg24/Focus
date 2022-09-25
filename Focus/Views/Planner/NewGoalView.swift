@@ -30,6 +30,7 @@ struct NewGoalView: View {
                         Text(item.name)
                     }
                 }
+                .pickerStyle(.menu)
                 DatePicker("Deadline", selection: $deadline)
                 Button("Submit") {
                     let goal = Goal(name: name, subject: subject, deadline: deadline, id: "\(name)\(deadline.timeIntervalSince1970)")

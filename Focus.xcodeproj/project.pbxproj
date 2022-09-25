@@ -22,12 +22,13 @@
 		31648F6428A9758200501096 /* CircularProgress in Frameworks */ = {isa = PBXBuildFile; productRef = 31648F6328A9758200501096 /* CircularProgress */; };
 		31648F6628A983EE00501096 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31648F6528A983EE00501096 /* ClockView.swift */; };
 		31648F6A28A9862800501096 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31648F6928A9862800501096 /* SettingsView.swift */; };
+		3189655728D8975B00A92A16 /* PlannerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3189655628D8975B00A92A16 /* PlannerStoryboard.storyboard */; };
+		3189655928D8977500A92A16 /* PlannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3189655828D8977500A92A16 /* PlannerViewController.swift */; };
 		319EA47728AC3ECD00E660AA /* BannerAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319EA47628AC3ECD00E660AA /* BannerAd.swift */; };
 		319EA47928AC434A00E660AA /* InterstitialAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319EA47828AC434A00E660AA /* InterstitialAd.swift */; };
 		319EA48228AC55EC00E660AA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 319EA48128AC55EC00E660AA /* Launch Screen.storyboard */; };
 		31BCB6E128C67BF900B1C57E /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCB6E028C67BF900B1C57E /* PlannerView.swift */; };
 		31DB6B2528AA536700989BD0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31DB6B2728AA536700989BD0 /* Localizable.strings */; };
-		31E338F028CBD078003C462A /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E338EF28CBD078003C462A /* Data.swift */; };
 		31E3390028CBD222003C462A /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E338FF28CBD222003C462A /* TitleView.swift */; };
 		31E3390228CBD22F003C462A /* InformationContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E3390128CBD22F003C462A /* InformationContainerView.swift */; };
 		31E3390428CBD23F003C462A /* InformationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E3390328CBD23F003C462A /* InformationDetailView.swift */; };
@@ -39,6 +40,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		310A643328D8948900F1FC5F /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Embed ExtensionKit Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3145468E28CFA4CF00FD613A /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -52,6 +63,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		310A643C28D894F600F1FC5F /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		310A644728D894F700F1FC5F /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		311FE7A328CC8F90003D7E3D /* SplashScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		311FE7A528CCB07A003D7E3D /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		3130E46628AC11B1009D6C5D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
@@ -67,12 +80,13 @@
 		31648F6528A983EE00501096 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		31648F6928A9862800501096 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		31648F6B28A9925800501096 /* Focus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Focus.entitlements; sourceTree = "<group>"; };
+		3189655628D8975B00A92A16 /* PlannerStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlannerStoryboard.storyboard; sourceTree = "<group>"; };
+		3189655828D8977500A92A16 /* PlannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewController.swift; sourceTree = "<group>"; };
 		319EA47628AC3ECD00E660AA /* BannerAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAd.swift; sourceTree = "<group>"; };
 		319EA47828AC434A00E660AA /* InterstitialAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAd.swift; sourceTree = "<group>"; };
 		319EA48128AC55EC00E660AA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		31BCB6E028C67BF900B1C57E /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
 		31DB6B2628AA536700989BD0 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		31E338EF28CBD078003C462A /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		31E338FF28CBD222003C462A /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		31E3390128CBD22F003C462A /* InformationContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationContainerView.swift; sourceTree = "<group>"; };
 		31E3390328CBD23F003C462A /* InformationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationDetailView.swift; sourceTree = "<group>"; };
@@ -124,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				31E338FE28CBD21A003C462A /* Splash Screen */,
-				31E338EF28CBD078003C462A /* Data.swift */,
 				31D049BE28C6817400454441 /* Planner */,
 				31D049BD28C6816C00454441 /* Timer */,
 			);
@@ -169,6 +182,8 @@
 				31BCB6E028C67BF900B1C57E /* PlannerView.swift */,
 				315B242428C936BE00F1C6F9 /* NewGoalView.swift */,
 				315B242628C936C600F1C6F9 /* NewSubjectView.swift */,
+				3189655628D8975B00A92A16 /* PlannerStoryboard.storyboard */,
+				3189655828D8977500A92A16 /* PlannerViewController.swift */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -240,6 +255,8 @@
 				B66B2228D54522E2A48A9668 /* Pods_Pomodoro.framework */,
 				3145467E28CFA4CE00FD613A /* WidgetKit.framework */,
 				3145468028CFA4CE00FD613A /* SwiftUI.framework */,
+				310A643C28D894F600F1FC5F /* Intents.framework */,
+				310A644728D894F700F1FC5F /* IntentsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -257,6 +274,7 @@
 				31FF1A3228A96CC80048DD49 /* Resources */,
 				534F14EBE8686C9CC9033501 /* [CP] Embed Pods Frameworks */,
 				3145468E28CFA4CF00FD613A /* Embed Foundation Extensions */,
+				310A643328D8948900F1FC5F /* Embed ExtensionKit Extensions */,
 			);
 			buildRules = (
 			);
@@ -314,6 +332,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3189655728D8975B00A92A16 /* PlannerStoryboard.storyboard in Resources */,
 				315007E128D0FBC400FEB8E4 /* GoogleService-Info.plist in Resources */,
 				31FF1A3F28A96CC90048DD49 /* Preview Assets.xcassets in Resources */,
 				31DB6B2528AA536700989BD0 /* Localizable.strings in Resources */,
@@ -389,8 +408,8 @@
 				319EA47728AC3ECD00E660AA /* BannerAd.swift in Sources */,
 				31648F6628A983EE00501096 /* ClockView.swift in Sources */,
 				31E3390628CBD28A003C462A /* Extensions+Customs.swift in Sources */,
+				3189655928D8977500A92A16 /* PlannerViewController.swift in Sources */,
 				31FF1A3828A96CC80048DD49 /* PomodoroApp.swift in Sources */,
-				31E338F028CBD078003C462A /* Data.swift in Sources */,
 				31E3390228CBD22F003C462A /* InformationContainerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -529,6 +548,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4FADA62E754E423E73E5FEDD /* Pods-Pomodoro.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Focus/Focus.entitlements;
@@ -553,7 +573,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.0;
+				MARKETING_VERSION = 2.0.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -573,6 +593,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C4AA9BAE218821244653CD2 /* Pods-Pomodoro.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Focus/Focus.entitlements;
@@ -597,7 +618,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.0;
+				MARKETING_VERSION = 2.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Alfie.Pomodoro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

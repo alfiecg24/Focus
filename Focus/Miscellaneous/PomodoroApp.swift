@@ -18,12 +18,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         var log = [String]()
         log.append("Launch: \(Date.now.formatted(date: .omitted, time: .standard))")
         UserDefaults.standard.set(log, forKey: "log")
-        // Main ring colour
-        UserDefaults.standard.setColor(.green, forKey: "color1")
-        // Background colour
-        UserDefaults.standard.setColor(Color("Background"), forKey: "background")
-        // Text colour
-        UserDefaults.standard.setColor(.white, forKey: "textColor")
         let intOptions = ["studyTime", "breakTime", "longBreakTime", "sessionsUntilLongBreak"]
         // Check if user has launched before
         if !UserDefaults.standard.bool(forKey: "hasLaunchedBefore") {
