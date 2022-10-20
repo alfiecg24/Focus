@@ -14,7 +14,8 @@ func getTimeDifference(startDate: Date) -> (Int){
 }
 
 func removeSavedDate(){
-    if (UserDefaults.standard.object(forKey: "saveTime") as? Date) != nil{
-        UserDefaults.standard.removeObject(forKey: "saveTime")
+    let defaults = UserDefaults(suiteName: "group.com.Alfie.Pomodoro")
+    if (defaults!.object(forKey: "saveTime") as? Date) != nil{
+        defaults!.removeObject(forKey: "saveTime")
     }
 }

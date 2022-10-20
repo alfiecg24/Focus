@@ -35,6 +35,11 @@
 			<key>orderHint</key>
 			<integer>17</integer>
 		</dict>
+		<key>FocusWidgetExtension.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>19</integer>
+		</dict>
 		<key>Pomodoro.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>

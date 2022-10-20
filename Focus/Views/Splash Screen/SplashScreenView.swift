@@ -31,16 +31,17 @@ struct SplashScreenView: View {
             }
             .padding(.horizontal)
             .fullScreenCover(isPresented: $isFinished, content: {
-                TabView {
-                    MainView()
-                        .tabItem({
-                            Label("Timer", systemImage: "deskclock")
-                        })
-                    PlannerView()
-                        .tabItem({
-                            Label("Planner", systemImage: "calendar.day.timeline.left")
-                        })
-                }
+//                TabView {
+//                    MainView()
+//                        .tabItem({
+//                            Label("Timer", systemImage: "deskclock")
+//                        })
+//                    PlannerView()
+//                        .tabItem({
+//                            Label("Planner", systemImage: "calendar.day.timeline.left")
+//                        })
+//                }
+                MainView()
             })
             
             Spacer()

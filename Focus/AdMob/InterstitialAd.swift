@@ -13,7 +13,7 @@ import AppTrackingTransparency
 class AdsManager: NSObject, ObservableObject {
     
     private struct AdMobConstant {
-        static let interstitialID = "ca-app-pub-4800768255188443/6422773974"
+        static let interstitialID = "ca-app-pub-4800768255188443/3607444308"
     }
     
     final class Interstitial: NSObject, GADFullScreenContentDelegate, ObservableObject {

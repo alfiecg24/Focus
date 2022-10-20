@@ -14,7 +14,7 @@ struct GADBannerViewController: UIViewControllerRepresentable {
   func makeUIViewController(context: Context) -> some UIViewController {
     let view = GADBannerView(adSize: GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth(UIScreen.main.bounds.width))
     let viewController = UIViewController()
-    let testID = "ca-app-pub-4800768255188443/5378668507"
+    let testID = "ca-app-pub-4800768255188443/2192089158"
       
     // Banner Ad
     view.adUnitID = testID

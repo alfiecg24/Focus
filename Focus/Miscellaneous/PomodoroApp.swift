@@ -114,6 +114,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 print("Notification permissions granted!")
             }
         }
+        
+        UserDefaults(suiteName: "group.com.Alfie.Pomodoro")?.set(Date.now, forKey: "saveTime")
+        
         return true
     }
     func applicationWillTerminate(_ application: UIApplication) {
@@ -143,16 +146,17 @@ struct PomodoroApp: App {
 //                    })
 //            }
             if previousLaunch {
-                TabView {
-                    MainView()
-                        .tabItem({
-                            Label("Timer", systemImage: "deskclock")
-                        })
-                    PlannerView()
-                        .tabItem({
-                            Label("Planner", systemImage: "calendar.day.timeline.left")
-                        })
-                }
+//                TabView {
+//                    MainView()
+//                        .tabItem({
+//                            Label("Timer", systemImage: "deskclock")
+//                        })
+//                    PlannerView()
+//                        .tabItem({
+//                            Label("Planner", systemImage: "calendar.day.timeline.left")
+//                        })
+//                }
+                MainView()
                 .onAppear {
                     ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
                         switch status {

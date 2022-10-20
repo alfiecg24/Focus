@@ -257,14 +257,12 @@ struct MainView: View {
                 }
                 // Timer mechanism
                 .onReceive(time) { time in
-                    print("Tick")
                     // Checks if user has skipped 5 segments, shows advert if true
                     if segmentSkips >= 5 && !isActive {
                         adsViewModel.showInterstitial.toggle()
                         segmentSkips = 0
                     }
                     if isActive {
-                        print("counter: \(counter)")
                         // Timer active and not yet complete
                         if counter < countTo {
                             counter += 1
@@ -307,9 +305,11 @@ struct MainView: View {
                     if isActive {
                         setupLocalNotificationsFor()
                     }
-                    let defaults = UserDefaults.standard
-                    defaults.set(Date.now, forKey: "saveTime")
+                    var defaults = UserDefaults.standard
                     defaults.set(counter, forKey: "saveCount")
+                    defaults = UserDefaults(suiteName: "group.com.Alfie.Pomodoro")!
+                    defaults.set(Date.now, forKey: "saveTime")
+                    print("Saved time")
                     print(Date())
                 }
                 // App returns to foreground
@@ -317,10 +317,10 @@ struct MainView: View {
                     inBackground = false
                     UNUserNotificationCenter.current().removeAllDeliveredNotifications()
                     print("App returning to the foreground")
-                    print("Saved date: \(UserDefaults.standard.object(forKey: "saveTime") as! Date)")
+                    print("Saved date: \(UserDefaults(suiteName: "group.com.Alfie.Pomodoro")!.object(forKey: "saveTime") as! Date)")
                     print("Current date: \(Date.now)")
                     //                    if inSession {
-                    if let saveDate = UserDefaults.standard.object(forKey: "saveTime") as? Date {
+                    if let saveDate = UserDefaults(suiteName: "group.com.Alfie.Pomodoro")!.object(forKey: "saveTime") as? Date {
                         // Calculate time in background
                         countDiff = getTimeDifference(startDate: saveDate)
                         let saveCount = UserDefaults.standard.integer(forKey: "saveCount")
@@ -331,7 +331,6 @@ struct MainView: View {
                         }
                         // Timer is finished
                         if countDiff >= countTo || counter >= countTo {
-                            print("Hello")
                             removeSavedDate()
                             counter = 0
                             countDiff = 0
